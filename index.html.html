@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PLC Trọng điểm 1 – Năng lực giải thích hiện tượng Sinh học</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --surface:#ffffff; --surface2:#f1f5f9; --ink:#0f172a; --ink2:#1e293b; --body:#1e293b; --muted:#475569; --faint:#64748b; --line:#e2e8f0;
+  --pri:#4f46e5; --pri-h:#4338ca; --pri-d:#3730a3; --pri-50:#eef2ff; --pri-100:#e0e7ff; --pri-200:#c7d2fe; --pri-ink:#312e81;
+  --ok:#059669; --ok-50:#ecfdf5; --ok-100:#d1fae5; --ok-200:#a7f3d0; --ok-ink:#065f46;
+  --k1:#1d4ed8; --k1s:#eff6ff; --k2:#c2410c; --k2s:#fff7ed; --k3:#6d28d9; --k3s:#f5f3ff;
+  --l0:#f8fafc; --l1:#ecfdf5; --l2:#d1fae5; --l3:#059669; --l3ink:#ffffff;
+  --warn:#92400e; --warn-bg:#fffbeb; --warn-line:#fde68a;
+  --sticky:rgba(255,255,255,.96); --shadow:0 1px 2px 0 rgba(15,23,42,.05); --shadow2:0 1px 3px 0 rgba(15,23,42,.1),0 1px 2px -1px rgba(15,23,42,.1);
+  --sans:"Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --serif:var(--sans);
+  color-scheme:light; box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6}
+img{max-width:100%}
+a{color:var(--pri)}
+:focus-visible{outline:2px solid var(--pri);outline-offset:2px;border-radius:6px}
+.ico{width:1em;height:1em;flex:none;fill:currentColor}
+
+/* ---------- Khung trang (theo mẫu: max-w-4xl, header dính) ---------- */
+.shell{max-width:none;margin:0;padding:16px 12px}
+@media (min-width:640px){.shell{padding:24px 24px}}
+@media (min-width:1024px){.shell{padding:24px 40px}}
+.sticky{position:sticky;top:0;z-index:40;background:var(--sticky);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);border-bottom:1px solid var(--line);box-shadow:var(--shadow);margin:0 -12px 16px;padding:calc(4px + env(safe-area-inset-top,0px)) 12px 12px}
+@media (min-width:640px){.sticky{margin:0 -24px 16px;padding-left:24px;padding-right:24px}}
+@media (min-width:1024px){.sticky{margin:0 -40px 20px;padding-left:40px;padding-right:40px}}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.brand{margin:0;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--pri)}
+.top h1{margin:0;font-size:1.125rem;line-height:1.35;font-weight:800;color:var(--ink)}
+@media (min-width:640px){.top h1{font-size:1.25rem}}
+.top-r{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.hbtn{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;font-size:.75rem;font-weight:700;border-radius:8px;border:2px solid var(--pri-200);background:var(--pri-50);color:var(--pri-d);text-decoration:none;white-space:nowrap;transition:background-color .15s,border-color .15s}
+@media (max-width:640px){.hbtn,.count{padding:5px 8px;font-size:.7rem;gap:4px}.top-r{gap:4px}}
+.hbtn:hover{background:var(--pri-100);border-color:var(--pri)}
+.count{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;font-size:.75rem;font-weight:700;border-radius:8px;border:2px solid var(--line);background:var(--surface);color:var(--muted);white-space:nowrap}
+.progress{height:8px;background:var(--line);border-radius:999px;overflow:hidden;margin-bottom:8px}
+.progress div{height:100%;background:var(--pri);border-radius:999px;transition:width .4s ease}
+.pills{display:flex;gap:4px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.pill{flex:none;appearance:none;border:0;font:inherit;font-size:.75rem;font-weight:600;padding:6px 12px;border-radius:8px;display:inline-flex;align-items:center;gap:6px;cursor:pointer;transition:background-color .15s,color .15s;background:var(--ok-100);color:var(--ok-ink)}
+.pill:hover{background:var(--ok-200)}
+.pill[aria-selected="true"]{background:var(--pri);color:#fff;box-shadow:var(--shadow2)}
+.pill[disabled]{background:var(--surface2);color:var(--faint);cursor:not-allowed}
+.pill .lock{width:10px;height:10px;opacity:.6}
+
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:none;padding:20px;margin-bottom:16px}
+@media (min-width:640px){.card{padding:32px}}
+.foot{text-align:center;font-size:.75rem;color:var(--faint);padding-top:8px;border-top:1px solid var(--line)}
+.fade-in{animation:fadeIn .35s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.fade-in,.sub.on{animation:none}}
+
+/* ---------- Đầu mỗi buổi ---------- */
+.s-head{margin-bottom:16px}
+.s-head .meta{display:block;font-size:.75rem;font-weight:600;color:var(--muted);margin-bottom:4px}
+.s-head h2{display:flex;align-items:center;gap:10px;margin:0;font-size:1.25rem;line-height:1.35;font-weight:700;color:var(--pri-d)}
+.goal{background:var(--pri-50);border:1px solid var(--pri-100);border-radius:12px;padding:16px;margin:0 0 20px;font-size:.875rem;color:var(--pri-ink);max-width:none}
+.goal b{color:var(--pri-d)}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:0 0 12px;margin-bottom:20px;border-bottom:1px solid var(--line);scrollbar-width:thin}
+.tabs button{flex:none;appearance:none;border:2px solid var(--line);background:var(--surface);color:var(--body);font:inherit;font-size:.8rem;font-weight:600;padding:6px 12px;border-radius:8px;cursor:pointer}
+.tabs button:hover{border-color:var(--pri-200);color:var(--pri)}
+.tabs button[aria-selected="true"]{background:var(--pri-50);border-color:var(--pri-200);color:var(--pri-d)}
+.sub{display:none}
+.sub.on{display:block;animation:fadeIn .35s ease}
+
+h3{font-size:1.05rem;font-weight:700;color:var(--ink2);margin:24px 0 10px}
+.sub>h3:first-child,.sub>.ex:first-child h4,.sub>p:first-child{margin-top:0}
+h4{font-size:.95rem;font-weight:700;color:var(--ink2);margin:16px 0 6px}
+p{margin:0 0 10px;color:var(--body);font-size:.9rem}
+.note{color:var(--muted);font-size:.85rem}
+ul,ol{padding-left:1.25em;margin:0 0 10px;color:var(--body);font-size:.9rem}
+li{margin:3px 0}
+
+/* bảng */
+.tbl{overflow-x:auto;margin:0 0 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.85rem;color:var(--body)}
+th,td{padding:10px 12px;vertical-align:top;text-align:left;border:1px solid var(--line)}
+tr>:first-child{border-left:0} tr>:last-child{border-right:0}
+thead tr:first-child>*{border-top:0} tbody tr:last-child>*{border-bottom:0}
+th{background:var(--surface2);font-weight:700;color:var(--ink2)}
+tbody th{background:color-mix(in srgb,var(--surface2) 50%,var(--surface));font-weight:600;white-space:nowrap}
+table.fit{width:auto;min-width:100%}
+table.fit th,table.fit td{white-space:nowrap}
+.tm-block{margin-bottom:8px}
+.tm-block h4{margin-top:8px}
+table.tm-tbl td{font-size:.83rem}
+td.num,th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+tr.total td{font-weight:700;background:var(--surface2);color:var(--ink2)}
+
+/* màu kỹ năng */
+.kn{display:inline-block;font-weight:700;font-size:.78em;padding:1px 7px;border-radius:6px;white-space:nowrap}
+.kn.k1{color:var(--k1);background:var(--k1s)}
+.kn.k2{color:var(--k2);background:var(--k2s)}
+.kn.k3{color:var(--k3);background:var(--k3s)}
+.skill{border:1px solid var(--line);border-left:4px solid var(--kc);border-radius:16px;background:var(--surface);box-shadow:var(--shadow);padding:16px 20px;margin-bottom:16px}
+.skill[data-k="1"]{--kc:var(--k1)} .skill[data-k="2"]{--kc:var(--k2)} .skill[data-k="3"]{--kc:var(--k3)}
+.skill h3{margin-top:0;color:var(--kc)}
+.skill dl{display:grid;grid-template-columns:170px 1fr;gap:10px 16px;margin:0;font-size:.9rem}
+.skill dt{font-weight:600;color:var(--muted);font-size:.85rem}
+.skill dd{margin:0;color:var(--body)}
+.skill dd ul{margin:4px 0 0}
+@media (max-width:640px){.skill dl{grid-template-columns:1fr;gap:2px}.skill dd{margin-bottom:10px}}
+
+/* thang 4 mức */
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.legend span{font-size:.75rem;font-weight:600;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--body)}
+.ind{border:1px solid var(--line);border-radius:16px;background:var(--surface);box-shadow:var(--shadow);margin-bottom:16px;overflow:hidden}
+.ind header{padding:14px 16px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;border-bottom:1px solid var(--line)}
+.ind header h4{margin:0;font-size:.95rem}
+.ind header .forms{font-size:.8rem;color:var(--muted);flex-basis:100%}
+.ladder{display:grid;grid-template-columns:repeat(4,1fr);list-style:none;padding:0;margin:0}
+.ladder li{padding:12px 14px;margin:0;font-size:.85rem;color:var(--body);border-right:1px solid var(--line)}
+.ladder li:last-child{border-right:0}
+.ladder li b{display:block;font-size:.75rem;margin-bottom:4px;color:var(--ink2)}
+.ladder li[data-l="0"]{background:var(--l0)}
+.ladder li[data-l="1"]{background:var(--l1)}
+.ladder li[data-l="2"]{background:var(--l2)}
+.ladder li[data-l="3"]{background:var(--l3);color:var(--l3ink)}
+.ladder li[data-l="3"] b{color:var(--l3ink)}
+@media (max-width:760px){.ladder{grid-template-columns:1fr}.ladder li{border-right:0;border-bottom:1px solid var(--line)}.ladder li:last-child{border-bottom:0}}
+
+/* ví dụ bài làm */
+.ex{border:1px solid var(--line);border-radius:16px;background:var(--surface);box-shadow:var(--shadow);padding:16px 20px;margin-bottom:16px}
+.ex .q{font-style:italic;margin-bottom:8px}
+.ex .row{display:grid;grid-template-columns:40px 1fr 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:.875rem;color:var(--body)}
+.ex .lv{width:28px;height:28px;border-radius:999px;display:grid;place-items:center;font-weight:700;font-size:.8rem;background:var(--pri-50);color:var(--pri)}
+.ex .why{color:var(--muted);font-size:.85rem}
+@media (max-width:640px){.ex .row{grid-template-columns:36px 1fr}.ex .why{grid-column:2}}
+
+/* trọng số */
+.bar{display:flex;height:36px;border-radius:999px;overflow:hidden;margin:6px 0 8px}
+.bar div{display:flex;align-items:center;padding:0 12px;font-size:.8rem;font-weight:700;color:#fff;white-space:nowrap}
+
+/* mô hình nhiệm vụ */
+.tm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,380px),1fr));gap:16px}
+.tm{border:1px solid var(--line);border-left:4px solid var(--kc);border-radius:16px;background:var(--surface);box-shadow:var(--shadow);padding:16px}
+.tm[data-k="1"]{--kc:var(--k1)} .tm[data-k="2"]{--kc:var(--k2)} .tm[data-k="3"]{--kc:var(--k3)}
+.tm h4{margin:0 0 10px;font-size:.92rem;line-height:1.45}
+.tm dl{display:grid;grid-template-columns:1fr;gap:0;margin:0;font-size:.85rem}
+.tm dt{color:var(--muted);font-size:.75rem;font-weight:600;margin-top:8px}
+.tm dd{margin:0;color:var(--body)}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:6px;padding:0 6px;margin:0 4px 4px 0;font-size:.8rem;background:var(--surface2)}
+.gen{display:grid;grid-template-columns:170px 1fr;gap:10px 16px;background:var(--pri-50);border:1px solid var(--pri-100);border-radius:12px;padding:16px;margin:0 0 20px;font-size:.875rem}
+.gen dt{font-weight:700;color:var(--pri-d)}
+.gen dd{margin:0;color:var(--pri-ink)}
+@media (max-width:640px){.gen{grid-template-columns:1fr;gap:2px}.gen dd{margin-bottom:8px}}
+.toolbar{display:flex;gap:6px;margin:0 0 14px;flex-wrap:wrap}
+.toolbar button{appearance:none;font:inherit;font-size:.75rem;font-weight:700;border:2px solid var(--line);background:var(--surface);color:var(--body);padding:5px 12px;border-radius:8px;cursor:pointer}
+.toolbar button:hover{border-color:var(--pri-200);color:var(--pri)}
+.toolbar .export{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:var(--ok-100);border-color:var(--ok-200);color:var(--ok-ink)}
+.toolbar .export:hover{border-color:var(--ok);color:var(--ok-ink)}
+.toolbar .xmsg{font-size:.75rem;color:var(--muted);align-self:center}
+.toolbar button.on{background:var(--pri);border-color:var(--pri);color:#fff}
+.notebox{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:12px;padding:12px 16px;margin:14px 0;font-size:.875rem;color:var(--warn)}
+.lock{width:12px;height:12px;vertical-align:-1px;margin-right:3px}
+
+/* mục lục */
+.toc-phase{margin:0 0 24px}
+.toc-phase>h3{margin:0 0 10px;font-size:1rem;color:var(--ink2)}
+.toc-phase>h3 span{font-weight:500;font-size:.85rem;color:var(--muted)}
+.toc-list{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.toc-list li{margin:0}
+.toc-item{display:grid;grid-template-columns:40px 84px 1fr auto;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:14px 16px;margin:0;color:inherit;font:inherit;text-align:left;width:100%}
+button.toc-item{cursor:pointer;appearance:none;transition:border-color .15s}
+button.toc-item:hover{border-color:var(--pri-200)}
+.toc-item .n{width:36px;height:36px;border-radius:999px;display:grid;place-items:center;font-weight:700;font-size:.85rem;background:var(--pri-50);color:var(--pri)}
+.toc-item.locked .n{background:var(--surface2);color:var(--faint)}
+.toc-item .w{font-weight:700;font-size:.85rem;color:var(--pri);padding-top:7px;white-space:nowrap}
+.toc-item.locked .w{color:var(--faint)}
+.toc-item .c b{display:block;font-size:.95rem;font-weight:700;color:var(--ink2);margin-bottom:2px}
+.toc-item.locked .c b{color:var(--muted)}
+.toc-item .c p{margin:0;color:var(--muted);font-size:.85rem}
+.toc-item .st{font-size:.75rem;font-weight:700;padding:4px 10px;border-radius:999px;white-space:nowrap;margin-top:5px;display:inline-flex;align-items:center;gap:4px}
+.toc-item .st.open{background:var(--ok-100);color:var(--ok-ink)}
+.toc-item .st.lk{background:var(--surface2);color:var(--faint)}
+@media (max-width:640px){.toc-item{grid-template-columns:36px 1fr;gap:4px 12px}.toc-item .w{padding-top:8px}.toc-item .c{grid-column:1 / -1}.toc-item .st{grid-column:1 / -1;justify-self:start}}
+@media print{.sticky .pills,.tabs,.toolbar{display:none}.sticky{position:static}.sub{display:block!important}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+<div class="shell">
+  <div class="sticky">
+    <header class="top">
+      <div>
+        <p class="brand">AY2627 PLC – Trọng điểm 1</p>
+        <h1>Năng lực giải thích hiện tượng thực tiễn trong Sinh học</h1>
+      </div>
+      <div class="top-r">
+        <a class="hbtn" href="https://forms.cloud.microsoft/r/4XFZW0jXWS" target="_blank" rel="noopener noreferrer"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h11a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v16h11V4H6zm2 3h7v2H8zm0 4h7v2H8zm0 4h4v2H8z"/></svg>Nhật ký phản tư</a>
+        <a class="hbtn" href="https://forms.cloud.microsoft/r/6wVjynnnQG" target="_blank" rel="noopener noreferrer"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2h6v2h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3zm0 4H6v14h12V6h-3v2H9zm1.3 9.6 5.3-5.3 1.4 1.4-6.7 6.7-3.7-3.7 1.4-1.4z"/></svg>Khảo sát năng lực đánh giá</a>
+        <span class="count" id="count"></span>
+      </div>
+    </header>
+    <div class="progress" aria-hidden="true"><div id="prog"></div></div>
+    <nav class="pills" id="rail" role="tablist" aria-label="Các buổi PLC"></nav>
+  </div>
+  <main class="card fade-in" id="main"></main>
+  <footer class="foot">LSTS - AY2627 PLC – Trọng điểm 1</footer>
+</div>
+
+<!-- ================= BUỔI 1 ================= -->
+<template id="tpl-1">
+
+<section class="sub" data-label="Định nghĩa năng lực">
+  <h3>Định nghĩa</h3>
+  <p><b>Năng lực giải thích hiện tượng thực tiễn trong Sinh học</b> là khả năng tổng hợp các loại kiến thức (nội dung, quy trình và nhận thức luận) cùng các kỹ năng tư duy để xây dựng, trình bày và đánh giá các giải thích nhất quán về mặt logic cho các sự vật, hiện tượng hoặc quá trình trong thế giới sống, sức khỏe, sản xuất hoặc môi trường.</p>
+  <p>Mỗi kỹ năng có hai tầng định nghĩa: <b>định nghĩa</b> (kỹ năng là gì) và <b>chỉ báo hành vi</b> (HS phải làm được gì trên bài làm thì được coi là có kỹ năng) – tầng thứ hai dùng để viết câu hỏi và chấm điểm.</p>
+  <h3>Chỉ báo hành vi của năng lực</h3>
+  <p>Khi được cho một hiện tượng thực tiễn (kèm mô tả, số liệu hoặc hình), HS được coi là thể hiện năng lực nếu:</p>
+  <ul>
+    <li>(a) chọn và áp dụng đúng khái niệm, quy luật sinh học liên quan <span class="kn k1">KN1</span></li>
+    <li>(b) dùng dữ liệu, quan sát để ủng hộ hoặc bác bỏ một nhận định và nêu được chuỗi nhân quả giải thích hiện tượng <span class="kn k2">KN2</span></li>
+    <li>(c) đọc, chuyển đổi hoặc xây dựng biểu đạt (sơ đồ, bảng, đồ thị, mô hình) để trình bày và hỗ trợ lời giải thích <span class="kn k3">KN3</span></li>
+  </ul>
+  <p>Mức năng lực được ước lượng từ tổng hợp kết quả ba kỹ năng, và báo cáo riêng từng kỹ năng để chẩn đoán.</p>
+  <h3>Các thuật ngữ then chốt</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Thuật ngữ</th><th>Nghĩa dùng trong công cụ</th><th>Ví dụ lớp 9</th></tr></thead>
+    <tbody>
+      <tr><td><b>Hiện tượng thực tiễn</b></td><td>Sự việc sinh học quan sát được trong đời sống, sức khỏe, nông nghiệp, an toàn sinh học hoặc môi trường, đặt ra câu hỏi "vì sao" hoặc "bằng cách nào"</td><td>Bố mẹ da bình thường sinh con bạch tạng</td></tr>
+      <tr><td><b>Mô tả</b></td><td>Nêu lại cái gì xảy ra; không đủ để được tính là giải thích</td><td>"Con bị bạch tạng dù bố mẹ bình thường"</td></tr>
+      <tr><td><b>Giải thích</b></td><td>Nêu vì sao, bằng cách nào hiện tượng xảy ra, dựa trên kiến thức khoa học và có cơ chế</td><td>"Bố mẹ đều mang gene lặn gây bệnh (Aa), con nhận hai gene lặn (aa) nên biểu hiện bệnh"</td></tr>
+      <tr><td><b>Bằng chứng</b></td><td>Số liệu, quan sát, kết quả thí nghiệm được dùng để ủng hộ hoặc bác bỏ một nhận định</td><td>Bảng tỉ lệ vi khuẩn sống sót qua các đợt dùng kháng sinh</td></tr>
+      <tr><td><b>Chuỗi nhân quả (cơ chế)</b></td><td>Chuỗi các bước nối nguyên nhân với kết quả, mỗi bước có thực thể và hoạt động cụ thể</td><td>Gene đột biến → mARN → amino acid thay đổi → hemoglobin → hồng cầu hình liềm</td></tr>
+      <tr><td><b>Biểu đạt</b></td><td>Cách trình bày thông tin: chữ, hình, sơ đồ, bảng, đồ thị, sơ đồ lai, phả hệ, tỉ lệ, công thức</td><td>Sơ đồ phả hệ 3 thế hệ; sơ đồ lai P → F1 → F2</td></tr>
+    </tbody></table></div>
+</section>
+
+<section class="sub" data-label="3 kỹ năng thành phần">
+  <article class="skill" data-k="1">
+    <h3>KN1 – Truy xuất kiến thức</h3>
+    <dl>
+      <dt>Định nghĩa</dt><dd>Khả năng nhớ lại và chọn đúng khái niệm, quy luật, nguyên lý sinh học phù hợp với bối cảnh thực tiễn được nêu.</dd>
+      <dt>Chỉ báo hành vi</dt><dd>Trước một hiện tượng, HS:<ul><li>Nhận diện được khái niệm, quy luật sinh học liên quan đến hiện tượng;</li><li>Phân biệt khái niệm gần nhau và nhận ra phát biểu sai khoa học;</li><li>Áp dụng khái niệm, quy luật vào đúng đối tượng trong tình huống.</li></ul></dd>
+      <dt>Không thuộc KN1</dt><dd>Phát biểu định nghĩa tách khỏi bối cảnh (kiểm tra thuộc bài, không đưa vào công cụ); dùng dữ liệu để lập luận (KN2); đọc thông tin từ hình (KN3).</dd>
+      <dt>Ví dụ trong KHTN 9</dt><dd>"Tính trạng bạch tạng tuân theo quy luật nào?"; "Trong các phát biểu sau về vi khuẩn kháng thuốc, phát biểu nào sai?"</dd>
+      <dt>Mức nhận thức chủ yếu</dt><dd>Biết – Hiểu (một phần Vận dụng)</dd>
+    </dl>
+  </article>
+  <article class="skill" data-k="2">
+    <h3>KN2 – Sử dụng bằng chứng để lập luận nhân quả và mối quan hệ</h3>
+    <dl>
+      <dt>Định nghĩa</dt><dd>Khả năng dùng bằng chứng khoa học (số liệu thực nghiệm, quan sát) để ủng hộ hoặc bác bỏ một nhận định, và xây dựng chuỗi nhân quả logic làm rõ cơ chế của hiện tượng.</dd>
+      <dt>Chỉ báo hành vi</dt><dd>Trước một hiện tượng kèm dữ liệu, HS:<ul><li>Nêu nhận định trả lời câu hỏi;</li><li>Chọn và trích bằng chứng phù hợp;</li><li>Nối bằng chứng với nhận định bằng nguyên lý sinh học;</li><li>Xây dựng chuỗi nhân quả (cơ chế).</li></ul></dd>
+      <dt>Không thuộc KN2</dt><dd>Chỉ gọi tên quy luật mà không nối với dữ liệu (KN1); chỉ đọc đúng số liệu từ bảng mà không dùng để kết luận (KN3 – đọc biểu đạt).</dd>
+      <dt>Ví dụ trong KHTN 9</dt><dd>"Dựa vào bảng tỉ lệ vi khuẩn sống sót, em đồng ý hay không với nhận định 'vi khuẩn tự biến đổi để chống thuốc'? Giải thích."</dd>
+      <dt>Mức nhận thức chủ yếu</dt><dd>Hiểu – Vận dụng</dd>
+    </dl>
+  </article>
+  <article class="skill" data-k="3">
+    <h3>KN3 – Sử dụng mô hình và đa biểu đạt</h3>
+    <dl>
+      <dt>Định nghĩa</dt><dd>Khả năng nhận diện, xây dựng và sử dụng các dạng biểu đạt (văn bản, sơ đồ, hình ảnh, bảng, đồ thị, mô hình toán học) như công cụ trung gian để minh họa và giải thích quá trình sinh học.</dd>
+      <dt>Chỉ báo hành vi</dt><dd>HS:<ul><li>Đọc, trích thông tin từ biểu đạt;</li><li>Chuyển đổi giữa các dạng biểu đạt;</li><li>Xây dựng sơ đồ, mô hình trình bày quá trình, cơ chế;</li><li>Dùng mô hình (kể cả tỉ lệ toán học) để dự đoán, giải thích.</li></ul></dd>
+      <dt>Không thuộc KN3</dt><dd>Lập luận vì sao dữ liệu ủng hộ nhận định (KN2); biết tên khái niệm thể hiện trong hình (KN1).</dd>
+      <dt>Ví dụ trong KHTN 9</dt><dd>"Từ sơ đồ phả hệ, lập sơ đồ lai của cặp vợ chồng thế hệ II"; "Vẽ sơ đồ từ gene đến hình dạng hồng cầu".</dd>
+      <dt>Mức nhận thức chủ yếu</dt><dd>Hiểu – Vận dụng</dd>
+    </dl>
+  </article>
+</section>
+
+<section class="sub" data-label="Ranh giới và phạm vi">
+  <h3>Ranh giới giữa ba kỹ năng</h3>
+  <p>Bài làm thật thường thể hiện nhiều kỹ năng cùng lúc. Để chấm nhất quán, tổ dùng <b>quy tắc phân loại theo chỗ HS thất bại</b>:</p>
+  <ul>
+    <li>HS sai vì <b>không biết hoặc chọn sai khái niệm</b> → thiếu <span class="kn k1">KN1</span></li>
+    <li>HS biết khái niệm, đọc đúng dữ liệu nhưng <b>không nối được dữ liệu với kết luận</b> hoặc <b>đứt chuỗi nhân quả</b> → thiếu <span class="kn k2">KN2</span></li>
+    <li>HS sai vì <b>không đọc, chuyển đổi hoặc tạo được biểu đạt</b> → thiếu <span class="kn k3">KN3</span></li>
+  </ul>
+  <h4>Ví dụ phân loại hành vi trong cùng một chùm câu hỏi bạch tạng</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>Hành vi của HS trên bài làm</th><th>Kỹ năng</th><th>Lý do</th></tr></thead>
+    <tbody>
+      <tr><td>Nêu "bạch tạng do gene lặn quy định"</td><td><span class="kn k1">KN1</span></td><td>Gọi đúng khái niệm, quy luật</td></tr>
+      <tr><td>Chỉ ra trên phả hệ: bố mẹ bình thường, con bị bệnh</td><td><span class="kn k3">KN3</span></td><td>Đọc thông tin từ biểu đạt</td></tr>
+      <tr><td>Dùng dữ kiện đó để kết luận tính trạng là lặn</td><td><span class="kn k2">KN2</span></td><td>Dùng bằng chứng để đi đến nhận định</td></tr>
+      <tr><td>Lập sơ đồ lai Aa × Aa → 1/4 aa</td><td><span class="kn k3">KN3</span></td><td>Chuyển phả hệ sang sơ đồ lai; dùng mô hình tỉ lệ</td></tr>
+      <tr><td>Giải thích vì sao con nhận hai gene lặn dẫn đến không tổng hợp được sắc tố</td><td><span class="kn k2">KN2</span></td><td>Xây dựng chuỗi nhân quả, cơ chế</td></tr>
+      <tr><td>Dự đoán xác suất đứa con tiếp theo bị bệnh</td><td><span class="kn k3">KN3</span></td><td>Dùng mô hình để dự đoán</td></tr>
+    </tbody></table></div>
+
+  <h3>Phạm vi nội dung và bối cảnh</h3>
+  <div class="tbl"><table><tbody>
+    <tr><th>Nội dung được đo</th><td>Phần Sinh học trong KHTN 9 (CT GDPT 2018): di truyền Mendel; ADN – gene – protein; nhiễm sắc thể; di truyền học người; ứng dụng công nghệ di truyền; tiến hóa. Chỉ gồm nội dung HS đã học trước tuần 23.</td></tr>
+    <tr><th>Kiến thức nền</th><td>Kiến thức KHTN 8 (cơ thể người, sinh thái) chỉ dùng làm bối cảnh, không hỏi trực tiếp.</td></tr>
+    <tr><th>Loại bối cảnh</th><td>Sức khỏe (bệnh di truyền, kháng kháng sinh); nông nghiệp (giống cây trồng, vật nuôi, chọn giống); an toàn sinh học (sinh vật biến đổi gen); đời sống (đặc điểm di truyền trong gia đình).</td></tr>
+    <tr><th>Loại trừ</th><td>Bối cảnh nhạy cảm với HS (xét nghiệm huyết thống, bệnh của người thật được nêu tên); nội dung chuyên đề THPT; đánh giá tác động xã hội – đạo đức của khoa học (thuộc năng lực khác của PISA).</td></tr>
+  </tbody></table></div>
+
+  <h3>Mục đích sử dụng điểm</h3>
+  <ul>
+    <li><b>Được dùng cho:</b> đánh giá chẩn đoán và đánh giá quá trình ở cấp tổ/trường, để biết HS mạnh, yếu ở kỹ năng nào và điều chỉnh dạy học.</li>
+    <li><b>Không dùng cho:</b> xếp loại HS, tính điểm học bạ, so sánh giữa các lớp hoặc giáo viên trong giai đoạn thử nghiệm.</li>
+    <li><b>Đơn vị báo cáo:</b> điểm toàn bài và điểm riêng từng kỹ năng. Điểm từng kỹ năng chỉ nên diễn giải ở cấp nhóm, vì mỗi kỹ năng có ít câu nên độ tin cậy ở cấp cá nhân còn hạn chế.</li>
+  </ul>
+</section>
+
+</template>
+
+<!-- ================= BUỔI 2 ================= -->
+<template id="tpl-2">
+
+<section class="sub" data-label="Phương pháp và 4 mức">
+  <h3>Mục đích và cách dùng khung</h3>
+  <p>Khung chỉ báo là <b>mô hình bằng chứng</b> của công cụ (Mislevy, Steinberg và Almond, 2003): nó nói rõ hành vi nào trên bài làm chứng tỏ HS có kỹ năng, và ở mức nào. Khung gồm <b>11 chỉ báo</b> cho 3 kỹ năng (<span class="kn k1">KN1</span> 3; <span class="kn k2">KN2</span> 4; <span class="kn k3">KN3</span> 4), mỗi chỉ báo mô tả ở 4 mức.</p>
+  <ul>
+    <li><b>Câu mở</b> (trả lời ngắn, tự luận giải thích): chấm trực tiếp theo 4 mức của chỉ báo mà câu đó đo. Rubric của từng câu là bản cụ thể hóa các mô tả mức cho nội dung của câu (rà soát ở buổi 4, tuần 13).</li>
+    <li><b>Câu đóng</b> (trắc nghiệm, Đúng/Sai): mỗi câu được thiết kế để <b>nhắm vào một mức</b> của chỉ báo (mức 1, 2 hoặc 3). Mức của HS được suy ra từ tổ hợp các câu đã làm đúng. Khi viết ngân hàng câu hỏi v.1, mỗi câu ghi kèm mã dạng <i>KN2.2-M2</i> (chỉ báo – mức nhắm tới).</li>
+  </ul>
+  <h3>Ý nghĩa chung của 4 mức (thang SOLO)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Mức</th><th>Tên</th><th>Tương ứng SOLO</th><th>Ý nghĩa chung cho mọi chỉ báo</th></tr></thead>
+    <tbody>
+      <tr><td><b>0</b></td><td>Chưa đạt</td><td>Tiền cấu trúc</td><td>Không trả lời, hoặc thông tin không liên quan, sai khoa học, chỉ lặp lại hiện tượng.</td></tr>
+      <tr><td><b>1</b></td><td>Đạt một phần</td><td>Đơn cấu trúc / Đa cấu trúc</td><td>Có một hoặc vài yếu tố đúng nhưng rời rạc, thiếu liên kết hoặc thiếu bước.</td></tr>
+      <tr><td><b>2</b></td><td>Đạt</td><td>Quan hệ</td><td>Các yếu tố đúng được nối thành một tổng thể mạch lạc; đáp ứng đầy đủ yêu cầu cần đạt của KHTN 9.</td></tr>
+      <tr><td><b>3</b></td><td>Vượt</td><td>Trừu tượng mở rộng</td><td>Như mức 2, và khái quát sang tình huống mới, xét giới hạn của dữ liệu hoặc mô hình, hoặc xét lời giải thích thay thế.</td></tr>
+    </tbody></table></div>
+  <p><b>Mức 2 là mức chuẩn</b> – tương ứng với yêu cầu cần đạt của chương trình. Mức 3 mô tả HS vượt yêu cầu; việc giữ mức 3 cho HS lớp 9 là giả thuyết, được kiểm chứng qua tiến trình học tập.</p>
+</section>
+
+<section class="sub" data-label="KN1 – Truy xuất kiến thức" data-ind="1"></section>
+<section class="sub" data-label="KN2 – Bằng chứng, lập luận" data-ind="2"></section>
+<section class="sub" data-label="KN3 – Mô hình, đa biểu đạt" data-ind="3"></section>
+
+<section class="sub" data-label="Ví dụ bài làm theo mức">
+  <p class="note">Các ví dụ do tổ soạn để minh họa, chưa phải bài làm thật. Từ phỏng vấn nhận thức (tuần 17–21) và thử nghiệm (tuần 23–36), tổ sẽ thay bằng bài làm thật của HS, đưa vào bộ bài mẫu neo.</p>
+  <div id="examples"></div>
+</section>
+
+</template>
+
+<!-- ================= BUỔI 3 ================= -->
+<template id="tpl-4">
+<section class="sub" data-label="Mô hình nhiệm vụ 11 chỉ báo" id="tm-sec"></section>
+<section class="sub" data-label="Bảng tra dạng câu" id="look-sec"></section>
+<section class="sub" data-label="Ma trận câu hỏi" id="qm-sec"></section>
+</template>
+
+<template id="tpl-3">
+<section class="sub" data-label="Ma trận trọng số" id="w-sec"></section>
+</template>
+
+<script>
+const DATA = {"weights": {"params": [["Tổng điểm thô của đề", 40], ["Thời lượng (phút)", 45], ["Sai lệch cho phép (điểm)", 1.5]], "skills": [["KN1 – Truy xuất kiến thức", 0.1, 0.1, 0.05, 0.25], ["KN2 – Bằng chứng và lập luận nhân quả", 0.1, 0.15, 0.15, 0.4], ["KN3 – Mô hình và đa biểu đạt", 0.1, 0.15, 0.1, 0.35], ["Tổng", 0.30000000000000004, 0.4, 0.30000000000000004, 1]], "points": [["KN1 – Truy xuất kiến thức", 4, 4, 2, 10], ["KN2 – Bằng chứng và lập luận nhân quả", 4, 6, 6, 16], ["KN3 – Mô hình và đa biểu đạt", 4, 6, 4, 14], ["Tổng", 12, 16, 12, 40]], "topics": [["T01", "Bài 35, 37: Khái quát di truyền; Nucleic acid", 4, "A", 1, 1, 4, 0.13114754098360656, 5.245901639344263, null], ["T02", "Bài 39: Tái bản, phiên mã, dịch mã", 5, "A", 1, 1, 5, 0.16393442622950818, 6.557377049180327, "Không hỏi enzyme, đoạn Okazaki, vùng khởi đầu (ngoài CT KHTN 9)"], ["T03", "Bài 38, 40: Đột biến gene; Từ gene đến tính trạng", 4, "A", 1, 1, 4, 0.13114754098360656, 5.245901639344263, "Gồm tính đặc trưng của hệ gene, ứng dụng phân tích DNA"], ["T04", "Bài 41: Cấu trúc và đột biến NST", 2, "B", 1, 1, 2, 0.06557377049180328, 2.6229508196721314, "Không hỏi nucleosome, sợi 30 nm"], ["T05", "Bài 43: Nguyên phân, giảm phân", 4, "B", 1, 1, 4, 0.13114754098360656, 5.245901639344263, "Không hỏi hoán vị gene"], ["T06", "Bài 42: Thực hành quan sát tiêu bản NST", 2, "B", 1, 1, 2, 0.06557377049180328, 2.6229508196721314, "Bài thực hành – đo bằng đề viết"], ["T07", "Bài 36: Các quy luật di truyền của Mendel", 5, "C", 1, 1.5, 7.5, 0.2459016393442623, 9.836065573770492, "Hệ số 1,5: nguồn chính của mô hình tỉ lệ, xác suất và số liệu thí nghiệm thật"], ["T08", "Bài 43: NST giới tính; di truyền liên kết", 2, "B", 1, 1, 2, 0.06557377049180328, 2.6229508196721314, "Không hỏi di truyền liên kết với giới tính"], [null, "Tổng", 28, null, null, null, 30.5, 0.9999999999999999, 40.00000000000001, null]], "clusters": [["A", "Cơ sở phân tử của di truyền (DNA – gene – protein, đột biến gene, phân tích DNA)", 13, 0.4262295081967213, 17.04918032786885, 4.2622950819672125, 6.819672131147541, 5.967213114754097], ["B", "NST, phân bào, NST giới tính, di truyền liên kết", 10, 0.32786885245901637, 13.114754098360654, 3.2786885245901636, 5.245901639344262, 4.590163934426228], ["C", "Quy luật di truyền của Mendel", 7.5, 0.2459016393442623, 9.836065573770492, 2.459016393442623, 3.934426229508197, 3.442622950819672], [null, "Tổng", 30.5, 1, 39.99999999999999, 9.999999999999998, 16, 13.999999999999996]], "cnote": null}, "tmGeneral": [["Cấu trúc", "Mỗi nhiệm vụ đặt trong một tình huống (chùm câu): tư liệu dẫn + 3–6 câu hỏi nhỏ, đi từ Biết đến Vận dụng."], ["Loại bối cảnh", "Sức khỏe (bệnh do đột biến gene, NST); nông nghiệp (chọn giống cây trồng); an toàn thực phẩm (phân tích DNA); đời sống (tỉ lệ giới tính, đặc điểm di truyền)."], ["Giới hạn biểu đạt cho lớp 9", "Đồ thị ≤ 2 biến, ≤ 3 đường/cột; bảng ≤ khoảng 5 × 4 ô; sơ đồ lai ≤ 2 cặp gene; bảng mã di truyền dạng rút gọn chỉ gồm các codon cần dùng."], ["Tránh", "Người thật được nêu tên; xét nghiệm huyết thống; nội dung Bài 44–48 và nội dung ngoài CT KHTN 9; tình huống có thể gây tổn thương cho HS."], ["Ngôn ngữ", "Câu ngắn, một yêu cầu/câu; in đậm động từ yêu cầu (chọn, trích, giải thích, vẽ); thuật ngữ đúng SGK KHTN 9."]], "tmHeads": ["Chỉ báo", "Bằng chứng cần thu (HS làm được gì)", "Cụm phù hợp", "Bối cảnh gợi ý", "Tư liệu dẫn bắt buộc", "Biến điều chỉnh độ khó (M1 → M3)", "Mức hỗ trợ", "Dạng câu và sản phẩm HS", "Quy tắc chấm (evidence rule)", "Câu trong đề pilot"], "tasks": [["KN1.1 Nhận diện khái niệm, quy luật liên quan", "Gọi đúng tên khái niệm/quy luật chi phối hiện tượng", "A, B, C", "Bệnh do đột biến; chọn giống", "Mô tả ngắn hiện tượng (2–4 câu)", "M1: gọi lĩnh vực chung → M2: khái niệm cụ thể → M3: giải thích vì sao khái niệm đó phù hợp hơn khái niệm gần", "Không gợi ý", "TN 4 phương án; nhiễu = khái niệm gần (tái bản/phiên mã/dịch mã; đột biến gene/NST)", "Đúng/sai (1 điểm)", "A1, A2, B2, C2"], ["KN1.2 Phân biệt khái niệm gần, nhận ra phát biểu sai", "Chọn đúng/sai cho các phát biểu chứa quan niệm sai phổ biến", "A, C", "Đột biến gene và NST; tính trội – lặn", "Tình huống + 4 phát biểu", "Số phát biểu chứa quan niệm sai; độ 'gần' của khái niệm; M3: tình huống mới chưa gặp trong SGK", "Không", "Đúng/Sai chùm 4 ý hoặc TN", "0,5 điểm/ý (Đ/S); 1 điểm (TN)", "A4, C7"], ["KN1.3 Áp dụng khái niệm vào đúng đối tượng", "Xác định kiểu gene, số NST, giao tử quyết định giới tính cho đúng đối tượng", "B, C", "Hội chứng NST; xác định giới tính; lai phân tích", "Mô tả phép lai, bộ NST", "Số đối tượng cần xác định; M3: suy kiểu gene từ kết quả phép lai", "Có thể cho sẵn kí hiệu gene", "Trả lời ngắn (kiểu gene, con số, NST)", "Đúng/sai (1 điểm)", "B3, B6, C3"], ["KN2.1 Nêu nhận định trả lời câu hỏi", "Chọn nhận định phù hợp với dữ liệu", "A, B", "Phân tích DNA thực phẩm; thống kê trẻ sơ sinh", "Bảng số liệu hoặc kết quả so sánh trình tự", "Mức độ trực tiếp của dữ liệu; số nhận định nhiễu hợp lí", "Câu hỏi nêu rõ biến cần xét", "TN 4 phương án", "Đúng/sai (1 điểm)", "A7, B5"], ["KN2.2 Chọn và trích bằng chứng phù hợp", "Trích đúng, đủ số liệu ủng hộ/bác bỏ nhận định", "A, C", "Phân tích DNA; số liệu thí nghiệm của Mendel", "Bảng số liệu có cả dữ liệu liên quan và không liên quan", "Tỉ lệ dữ liệu gây nhiễu; số bằng chứng cần trích; M3: nêu giới hạn dữ liệu", "Có/không gợi ý số bằng chứng cần trích", "Đ/S chùm; trả lời ngắn", "0,5 điểm/ý; 1 điểm (trả lời ngắn đúng, đủ)", "A9, C6"], ["KN2.3 Nối bằng chứng với nhận định bằng nguyên lý", "Giải thích vì sao dữ liệu ủng hộ/bác bỏ nhận định, dựa trên nguyên lý sinh học", "A", "Đột biến có lợi/có hại theo môi trường; tính đặc trưng của hệ gene", "Nhận định cần kiểm chứng + bảng số liệu/trình tự", "M2: lập luận một chiều → M3: xét lời giải thích thay thế, giới hạn của dữ liệu", "Câu hỏi nêu cấu trúc Nhận định – Bằng chứng – Lập luận", "Đ/S chùm (VD); tự luận", "Rubric 0–3 (SP-T02-04) hoặc 0,5 điểm/ý", "A6, A10"], ["KN2.4 Xây dựng chuỗi nhân quả", "Viết chuỗi nguyên nhân → cơ chế → kết quả, không nhảy bước", "A, B", "Bệnh do đột biến gene/NST", "Mô tả hiện tượng + hình minh họa", "Số mắt xích; số cấp tổ chức cần nối (phân tử → tế bào → cơ thể)", "Có thể cho sẵn điểm đầu và điểm cuối của chuỗi", "Tự luận giải thích", "Rubric 0–3", "A5b, B4b"], ["KN3.1 Đọc, trích thông tin từ biểu đạt", "Đọc đúng quy ước; nhận ra xu hướng/quan hệ", "A, B, C", "Bảng mã, trình tự DNA, bộ NST, bảng kết quả lai", "Một biểu đạt rõ ràng", "M1: thông tin trực tiếp → M2: so sánh, phép tính đơn giản → M3: kết hợp 2 biểu đạt", "Chú thích kí hiệu đi kèm", "TN; trả lời ngắn", "Đúng/sai (1 điểm)", "A3, A8, B1, C1"], ["KN3.2 Chuyển đổi giữa các biểu đạt", "Chuyển bảng kết quả lai → sơ đồ lai; mô tả chữ → sơ đồ", "B, C", "Hội chứng NST; thí nghiệm lai", "Biểu đạt nguồn (bảng, mô tả)", "Có/không khung sơ đồ cho sẵn; số thế hệ; M3: chọn dạng biểu đạt phù hợp", "Có thể cho khung sơ đồ trống", "Tự luận (vẽ, hoàn thành sơ đồ)", "Rubric 0–3", "B4a, C5"], ["KN3.3 Xây dựng sơ đồ/mô hình cơ chế", "Vẽ sơ đồ đủ thành phần, quan hệ, ghi tên quá trình", "A", "Từ gene đến tính trạng", "Mô tả hiện tượng bệnh", "Số thành phần phải tự nêu; M3: dùng sơ đồ cho trường hợp biến đổi", "Có thể cho danh sách thành phần", "Tự luận (vẽ sơ đồ)", "Rubric 0–3", "A5a"], ["KN3.4 Dùng mô hình (kể cả tỉ lệ) để dự đoán", "Dự đoán bằng tỉ lệ Mendel, diễn giải đúng xác suất", "C", "Chọn giống cây trồng", "Kiểu gene P hoặc kết quả lai", "M1: tính tỉ lệ → M2: xác suất cho một cá thể → M3: nêu giới hạn khi số cá thể ít", "Có thể cho sẵn kiểu gene P", "Trả lời ngắn; tự luận", "Đúng/sai (1 điểm) hoặc rubric 0–3", "C4"]]};
+
+const SESSIONS = [
+  {n:1, wk:"Tuần 1", phase:1, title:"Định nghĩa vận hành 3 kỹ năng thành phần", goal:"Hiểu rõ mục tiêu và lộ trình 10 buổi PLC (tuần 1–45), chốt định nghĩa vận hành KN1–KN3, phạm vi nội dung KHTN 9 và mục đích sử dụng điểm.", locked:false},
+  {n:2, wk:"Tuần 5", phase:1, title:"Bộ chỉ báo và tiến trình học tập giả thuyết", goal:"Phân rã 3 kỹ năng thành các chỉ báo hành vi quan sát được, mô tả 4 mức cho mỗi chỉ báo và sắp thành tiến trình học tập giả thuyết; thông qua Khung chỉ báo hành vi v.1.", locked:false},
+  {n:3, wk:"Tuần 9", phase:1, title:"Xác định ma trận trọng số", goal:"Chốt ma trận trọng số v2 cho phạm vi Bài 35–43: trọng số kỹ năng × mức nhận thức (KN1 25% – KN2 40% – KN3 35%), trọng số chủ đề theo số tiết và hệ số ưu tiên, phân bổ 40 điểm theo cụm đo A, B, C; làm căn cứ soạn bộ câu chung và ngân hàng câu hỏi.", locked:false},
+  {n:4, wk:"Tuần 13", phase:2, title:"Rà soát ma trận câu hỏi", goal:"Rà soát mô hình nhiệm vụ 11 chỉ báo và ma trận câu hỏi của bộ câu chung (29 câu, 40 điểm): kiểm tra mỗi câu đúng chỉ báo, mức độ phức tạp, cụm và dạng câu; phân công soạn nội dung câu hỏi, đáp án và quy tắc chấm.", locked:false},
+  {n:5, wk:"Tuần 17", phase:2, title:"Thẩm định câu hỏi và phỏng vấn nhận thức", goal:"Quyết định giữ/sửa/loại từng câu theo kết quả thẩm định chuyên gia (I-CVI, S-CVI/Ave); GV sẵn sàng phỏng vấn nhận thức học sinh.", locked:true},
+  {n:6, wk:"Tuần 21", phase:2, title:"Phân tích dữ liệu thẩm định câu hỏi và phỏng vấn nhận thức", goal:"Phân tích phỏng vấn nhận thức để hoàn thiện ngân hàng câu hỏi v.3 và rubric & hướng dẫn chấm v.3; chốt thiết kế thử nghiệm và bộ tài liệu tổ chức.", locked:true},
+  {n:7, wk:"Tuần 23–36", phase:3, title:"Tổ chức thử nghiệm và thu thập dữ liệu", goal:"Hoàn thành 3 đợt đo chung trên toàn mẫu với tỉ lệ bài hợp lệ ≥ 90% mỗi đợt và ≥ 90% HS làm xong trong 20 phút; tổ thống nhất cách chấm trước khi chấm hàng loạt; chấm đôi rải theo từng đợt. Kết quả không dùng để xếp loại hay tính điểm học bạ.", locked:true},
+  {n:8, wk:"Tuần 37", phase:3, title:"Tổng hợp bài làm và chấm bài", goal:"Đạt kappa có trọng số ≥ 0,60 (mục tiêu ≥ 0,70) hoặc ICC ≥ 0,75 cho từng câu mở; có bộ bài mẫu neo chính thức.", locked:true},
+  {n:9, wk:"Tuần 41", phase:3, title:"Phân tích dữ liệu thử nghiệm", goal:"Có kết luận giữ/sửa/bỏ cho 100% câu; kiểm chứng tiến trình học tập giả thuyết.", locked:true},
+  {n:10, wk:"Tuần 45", phase:3, title:"Hiệu chỉnh công cụ đánh giá khung năng lực", goal:"Có ngân hàng câu hỏi v.4, rubric & hướng dẫn chấm v.4, khung chỉ báo và tiến trình học tập v.2, nhật ký sửa đổi; mọi thay đổi có lý do dựa trên dữ liệu.", locked:true}
+];
+const PHASES = {1:["Giai đoạn 1","Xác định cấu trúc năng lực",3],2:["Giai đoạn 2","Xây dựng công cụ, thẩm định",3],3:["Giai đoạn 3","Thử nghiệm trên khối 9",4]};
+
+const INDICATORS = [
+ {k:1, code:"KN1.1", name:"Nhận diện được khái niệm, quy luật sinh học liên quan đến hiện tượng", forms:"Trắc nghiệm; trả lời ngắn", L:[
+  "Không nêu, hoặc nêu khái niệm không liên quan (VD: cho rằng bạch tạng do \"thiếu nắng\").",
+  "Nêu đúng lĩnh vực chung (di truyền, tiến hóa) nhưng chưa chỉ ra khái niệm, quy luật cụ thể.",
+  "Nêu đúng khái niệm, quy luật cụ thể chi phối hiện tượng (VD: gene lặn trên NST thường, quy luật phân li).",
+  "Như mức 2, và chỉ ra vì sao khái niệm đó phù hợp hơn một khái niệm gần (VD: vì sao là di truyền chứ không phải biến đổi do môi trường)."]},
+ {k:1, code:"KN1.2", name:"Phân biệt khái niệm gần nhau và nhận ra phát biểu sai khoa học", forms:"Đúng/Sai theo chùm; trắc nghiệm", L:[
+  "Dùng lẫn khái niệm (gene = NST = DNA); chấp nhận phát biểu sai.",
+  "Phân biệt được một phần; nhận ra phát biểu sai hiển nhiên nhưng bỏ sót phát biểu chứa quan niệm sai phổ biến.",
+  "Dùng đúng các khái niệm gần nhau; nhận ra phát biểu chứa quan niệm sai phổ biến (VD: \"vi khuẩn tự biến đổi để thích nghi\").",
+  "Như mức 2, và chỉ rõ chỗ sai, sửa thành phát biểu đúng khoa học."]},
+ {k:1, code:"KN1.3", name:"Áp dụng khái niệm, quy luật vào đúng đối tượng trong tình huống", forms:"Trả lời ngắn; tự luận ngắn", L:[
+  "Không áp dụng, hoặc áp dụng vào sai đối tượng (VD: gán kiểu gene sai người trong phả hệ).",
+  "Áp dụng đúng cho một đối tượng hoặc một bước; sai hoặc thiếu ở đối tượng, bước khác.",
+  "Áp dụng đúng cho mọi đối tượng liên quan (VD: xác định đúng kiểu gene của bố, mẹ và con).",
+  "Áp dụng đúng trong tình huống biến đổi, chưa gặp trong SGK (VD: có thêm thông tin về ông bà hoặc anh chị em)."]},
+ {k:2, code:"KN2.1", name:"Nêu nhận định trả lời câu hỏi", forms:"Trắc nghiệm (chọn nhận định); tự luận", L:[
+  "Không nêu, hoặc nhận định không trả lời câu hỏi, chỉ lặp lại hiện tượng.",
+  "Nêu nhận định nhưng mơ hồ hoặc chỉ đúng một phần.",
+  "Nêu nhận định rõ ràng, đúng khoa học, trả lời trực tiếp câu hỏi.",
+  "Như mức 2, và nêu điều kiện, phạm vi đúng của nhận định (VD: \"khi dùng kháng sinh không đủ liều\")."]},
+ {k:2, code:"KN2.2", name:"Chọn và trích bằng chứng phù hợp", forms:"Trắc nghiệm; trả lời ngắn; tự luận", L:[
+  "Không dùng số liệu, quan sát; hoặc dùng thông tin không liên quan.",
+  "Trích một bằng chứng đúng nhưng chưa đủ để kết luận, hoặc trích kèm dữ liệu không liên quan.",
+  "Trích đủ bằng chứng cần thiết, chính xác, có số liệu cụ thể.",
+  "Như mức 2, và chỉ ra bằng chứng nào có tính quyết định, hoặc nêu giới hạn của dữ liệu (cỡ mẫu nhỏ, thiếu đối chứng)."]},
+ {k:2, code:"KN2.3", name:"Nối bằng chứng với nhận định bằng nguyên lý sinh học", forms:"Tự luận giải thích", L:[
+  "Không có lập luận, hoặc lập luận dựa trên niềm tin, kinh nghiệm đời thường.",
+  "Có lập luận nhưng không dùng nguyên lý sinh học, hoặc chỉ lặp lại bằng chứng.",
+  "Dùng đúng nguyên lý sinh học để giải thích vì sao bằng chứng ủng hộ hoặc bác bỏ nhận định.",
+  "Như mức 2, và dùng bằng chứng để xét, bác bỏ một lời giải thích thay thế."]},
+ {k:2, code:"KN2.4", name:"Xây dựng chuỗi nhân quả (cơ chế)", forms:"Tự luận giải thích", L:[
+  "Chỉ mô tả hiện tượng, không có quan hệ nhân quả.",
+  "Nêu nguyên nhân và kết quả nhưng thiếu cơ chế ở giữa (nhảy bước), hoặc các mắt xích rời rạc.",
+  "Chuỗi liên tục, đủ các mắt xích chính, đúng thứ tự, đúng khoa học.",
+  "Như mức 2, và nối được các cấp tổ chức (phân tử → tế bào → cơ thể → quần thể), hoặc chỉ ra yếu tố làm thay đổi chuỗi."]},
+ {k:3, code:"KN3.1", name:"Đọc, trích thông tin từ biểu đạt", forms:"Trắc nghiệm; trả lời ngắn", L:[
+  "Đọc sai quy ước (nhầm ký hiệu nam/nữ trong phả hệ, nhầm trục đồ thị).",
+  "Đọc đúng thông tin trực tiếp (một giá trị, một cá thể) nhưng không nhận ra xu hướng, quan hệ.",
+  "Đọc đúng và nhận ra xu hướng, quan hệ trong biểu đạt.",
+  "Kết hợp thông tin từ hai biểu đạt trở lên để rút ra thông tin mới."]},
+ {k:3, code:"KN3.2", name:"Chuyển đổi giữa các dạng biểu đạt", forms:"Trả lời ngắn; tự luận (vẽ)", L:[
+  "Không chuyển được, hoặc biểu đạt mới làm sai thông tin gốc.",
+  "Chuyển được một phần; sai hoặc thiếu quy ước (thiếu ký hiệu, sai tên trục).",
+  "Chuyển đúng và đủ thông tin, đúng quy ước (phả hệ → sơ đồ lai; bảng → đồ thị).",
+  "Như mức 2, và chọn được dạng biểu đạt phù hợp nhất với mục đích, giải thích được lý do."]},
+ {k:3, code:"KN3.3", name:"Xây dựng sơ đồ, mô hình trình bày quá trình, cơ chế", forms:"Tự luận (vẽ sơ đồ)", L:[
+  "Hình vẽ không thể hiện quá trình (vẽ tranh minh họa).",
+  "Sơ đồ có thành phần nhưng thiếu quan hệ (mũi tên không có nghĩa) hoặc thiếu bước.",
+  "Sơ đồ đủ thành phần, quan hệ đúng, có ghi tên quá trình trên mũi tên.",
+  "Như mức 2, và dùng sơ đồ để giải thích một trường hợp biến đổi, hoặc nêu giới hạn của sơ đồ."]},
+ {k:3, code:"KN3.4", name:"Dùng mô hình (kể cả tỉ lệ toán học) để dự đoán, giải thích", forms:"Trắc nghiệm; trả lời ngắn; tự luận", L:[
+  "Không dùng mô hình; dự đoán theo cảm tính.",
+  "Dùng mô hình nhưng áp dụng hoặc diễn giải sai (VD: hiểu tỉ lệ 3:1 thành \"chắc chắn 3 con khỏe, 1 con bệnh\").",
+  "Dùng đúng mô hình để dự đoán và diễn giải đúng ý nghĩa xác suất.",
+  "Như mức 2, và nêu giới hạn của dự đoán (mỗi lần sinh độc lập; số con ít thì tỉ lệ thực tế có thể lệch)."]}
+];
+const KNAMES = {1:"KN1 – Truy xuất kiến thức",2:"KN2 – Sử dụng bằng chứng để lập luận nhân quả và mối quan hệ",3:"KN3 – Sử dụng mô hình và đa biểu đạt"};
+const LNAMES = ["Mức 0 – Chưa đạt","Mức 1 – Đạt một phần","Mức 2 – Đạt","Mức 3 – Vượt"];
+
+const EXAMPLES = [
+ {code:"KN2.4", title:"Chuỗi nhân quả: vi khuẩn kháng kháng sinh", q:"Vì sao dùng kháng sinh không đủ liều nhiều lần làm thuốc mất tác dụng?", rows:[
+  ["\"Vì vi khuẩn quen thuốc rồi.\"","Mô tả, không có cơ chế; chứa quan niệm sai về \"tự thích nghi\""],
+  ["\"Vì có vi khuẩn kháng thuốc nên thuốc mất tác dụng.\"","Có nguyên nhân và kết quả nhưng thiếu cơ chế chọn lọc ở giữa"],
+  ["\"Trong quần thể vi khuẩn có sẵn một số con mang gene kháng thuốc. Thuốc giết các con không kháng, con kháng sống sót và sinh sản, nên qua các đợt tỉ lệ vi khuẩn kháng tăng dần, thuốc mất tác dụng.\"","Chuỗi liên tục: biến dị có sẵn → chọn lọc → sinh sản → thay đổi tỉ lệ"],
+  ["Như mức 2, và thêm: \"Dùng không đủ liều làm nhiều vi khuẩn kháng yếu còn sống, nên chọn lọc diễn ra nhanh hơn; gene kháng được truyền cho thế hệ sau nên cả quần thể thay đổi.\"","Nối cấp cá thể với cấp quần thể; chỉ ra yếu tố (liều dùng) làm thay đổi chuỗi"]]},
+ {code:"KN3.4", title:"Dùng mô hình: xác suất sinh con bạch tạng", q:"Bố mẹ đều có kiểu gene Aa. Họ dự định sinh 4 con. Có phải chắc chắn sẽ có 1 con bị bạch tạng không?", rows:[
+  ["\"Có thể có hoặc không, tùy may mắn.\"","Không dùng mô hình di truyền"],
+  ["\"Đúng, vì tỉ lệ là 3 bình thường : 1 bạch tạng.\"","Dùng mô hình nhưng diễn giải sai tỉ lệ thành số đếm chắc chắn"],
+  ["\"Không chắc chắn. Mỗi lần sinh, xác suất con bị bạch tạng là 1/4; tỉ lệ 3:1 là xác suất chứ không phải số con chắc chắn.\"","Dùng đúng mô hình, diễn giải đúng ý nghĩa xác suất"],
+  ["Như mức 2, và thêm: \"Mỗi lần sinh là độc lập, nên có thể cả 4 con đều bình thường hoặc có 2 con bị bệnh; với số con ít, tỉ lệ thực tế thường lệch khỏi 3:1.\"","Nêu giới hạn của dự đoán khi áp dụng vào một gia đình cụ thể"]]},
+ {code:"KN1.3", title:"Áp dụng quy luật vào đối tượng trong tình huống", q:"Trong phả hệ, bố mẹ (thế hệ II) bình thường, có con bị bạch tạng; ông ngoại (thế hệ I) bị bạch tạng. Xác định kiểu gene của bố, mẹ và con.", rows:[
+  ["\"Bố AA, mẹ AA, con aa.\"","Áp dụng sai: bố mẹ AA không thể sinh con aa"],
+  ["\"Con là aa, bố mẹ bình thường nên là AA.\"","Đúng với con, sai với bố mẹ"],
+  ["\"Con aa. Con nhận một a từ bố và một a từ mẹ, nên bố Aa, mẹ Aa.\"","Đúng cho mọi đối tượng liên quan"],
+  ["Như mức 2, và thêm: \"Mẹ chắc chắn là Aa vì ông ngoại aa đã truyền a cho mẹ, mà mẹ bình thường nên phải có A.\"","Dùng thêm thông tin thế hệ I, áp dụng trong tình huống mở rộng"]]}
+];
+
+
+/* ---------- helpers ---------- */
+const esc = s => String(s ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const chips = h => h.replace(/KN([123])(?:\.[\dx])?(?:–KN\d\.\d)?/g, m => `<span class="kn k${m[2]}">${m}</span>`);
+const inl = s => chips(esc(s));
+function block(s){
+  const lines = String(s||"").split("\n").map(l=>l.trim()).filter(Boolean);
+  let out="", list=null;
+  const close=()=>{ if(list){ out+=`</${list}>`; list=null; } };
+  for(const l of lines){
+    let m;
+    if((m=l.match(/^[-–•]\s*(.*)$/))){ if(list!=="ul"){close(); out+="<ul>"; list="ul";} out+=`<li>${inl(m[1])}</li>`; }
+    else if((m=l.match(/^\d+\.\s*(?:\[([^\]]+)\]\s*)?(.*)$/))){ if(list!=="ol"){close(); out+="<ol>"; list="ol";} out+=`<li>${m[1]?`<span class="qtag">${esc(m[1])}</span>`:""}${inl(m[2])}</li>`; }
+    else { close(); out+=`<p>${inl(l)}</p>`; }
+  }
+  close(); return out;
+}
+const store = {
+  get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+};
+const lockSvg = '<svg class="lock" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M4 7V5a4 4 0 1 1 8 0v2h1v8H3V7h1zm2 0h4V5a2 2 0 1 0-4 0v2z"/></svg>';
+
+/* ---------- rail ---------- */
+const ICONS={
+  list:'M3 5h2v2H3zm4 0h14v2H7zM3 11h2v2H3zm4 0h14v2H7zm-4 6h2v2H3zm4 0h14v2H7z',
+  search:'M10 3a7 7 0 0 1 5.6 11.2l4.6 4.6-1.4 1.4-4.6-4.6A7 7 0 1 1 10 3zm0 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10z',
+  layers:'M12 2 2 7l10 5 10-5-10-5zm-8.3 9.2L2 12l10 5 10-5-1.7-.8L12 15l-8.3-3.8zm0 5L2 17l10 5 10-5-1.7-.8L12 20l-8.3-3.8z',
+  grid:'M3 3h8v8H3zm2 2v4h4V5zm8-2h8v8h-8zm2 2v4h4V5zM3 13h8v8H3zm2 2v4h4v-4zm8-2h8v8h-8zm2 2v4h4v-4z',
+  flask:'M9 2h6v2h-1v5.2l5.6 9.4A2 2 0 0 1 17.9 22H6.1a2 2 0 0 1-1.7-3.4L10 9.2V4H9zm3 9-2 3.4h4z'
+};
+const ico=(k,cls="ico")=>`<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true"><path d="${ICONS[k]}"/></svg>`;
+const SICON={1:"search",2:"layers",3:"grid",4:"flask"};
+const rail = document.getElementById("rail");
+{
+  const open=SESSIONS.filter(s=>!s.locked).length;
+  document.getElementById("count").textContent=`${open}/${SESSIONS.length} buổi đã cập nhật`;
+  document.getElementById("prog").style.width=(open/SESSIONS.length*100)+"%";
+  const t=document.createElement("button");
+  t.className="pill"; t.type="button"; t.setAttribute("role","tab"); t.id="tab-0";
+  t.innerHTML=`${ico("list")}Mục lục`;
+  t.addEventListener("click",()=>openIndex(true));
+  rail.appendChild(t);
+}
+SESSIONS.forEach(s=>{
+  const b=document.createElement("button");
+  b.className="pill"; b.type="button"; b.setAttribute("role","tab"); b.id="tab-"+s.n;
+  b.innerHTML=`<span>${s.n}.</span> ${s.wk}${s.locked?lockSvg:""}`;
+  b.setAttribute("aria-label",`Buổi ${s.n}, ${s.wk}: ${s.title}`);
+  if(s.locked){ b.disabled=true; b.setAttribute("aria-disabled","true"); b.title="Buổi này đang khóa – nội dung sẽ cập nhật sau"; }
+  else { b.title=s.title; b.addEventListener("click",()=>openSession(s.n,true)); }
+  rail.appendChild(b);
+});
+function refade(){ main.classList.remove("fade-in"); void main.offsetWidth; main.classList.add("fade-in"); }
+
+/* ---------- session ---------- */
+const main=document.getElementById("main");
+function selectRail(id){ rail.querySelectorAll(".pill").forEach(b=>b.setAttribute("aria-selected", b.id===id ? "true":"false")); }
+function openIndex(focus){
+  store.set("plc-session","0"); selectRail("tab-0");
+  let h=`<div class="s-head"><span class="meta">10 buổi PLC – tuần 1 đến tuần 45</span><h2>${ico("list")}Mục lục</h2></div>
+  <p class="goal"><b>Câu hỏi nghiên cứu:</b> Một học sinh có thể giải thích tốt hiện tượng sinh học thì cần biểu hiện những năng lực nào?</p>`;
+  for(const p of [1,2,3]){
+    h+=`<section class="toc-phase"><h3>${PHASES[p][0]} <span>– ${PHASES[p][1]}</span></h3><ol class="toc-list">`;
+    SESSIONS.filter(s=>s.phase===p).forEach(s=>{
+      const inner=`<span class="n">${s.n}</span><span class="w">${s.wk}</span><span class="c"><b>${esc(s.title)}</b><p>${inl(s.goal)}</p></span>${s.locked?`<span class="st lk">${lockSvg}Đang khóa</span>`:`<span class="st open">Xem nội dung</span>`}`;
+      h+= s.locked ? `<li><div class="toc-item locked">${inner}</div></li>` : `<li><button type="button" class="toc-item" data-go="${s.n}">${inner}</button></li>`;
+    });
+    h+=`</ol></section>`;
+  }
+  main.innerHTML=h; refade();
+  main.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>{ openSession(+b.dataset.go,true); window.scrollTo({top:0}); }));
+  if(focus) document.getElementById("tab-0").scrollIntoView({block:"nearest",inline:"nearest"});
+}
+function openSession(n,focus){
+  const s=SESSIONS.find(x=>x.n===n); if(!s||s.locked) return;
+  store.set("plc-session",String(n));
+  selectRail("tab-"+n);
+  main.innerHTML=`<div class="s-head"><span class="meta">Buổi ${s.n} – ${s.wk} – ${PHASES[s.phase][0]}</span><h2>${ico(SICON[s.n]||"flask")}${esc(s.title)}</h2></div>
+    <p class="goal"><b>Mục tiêu:</b> ${inl(s.goal)}</p><div class="tabs" role="tablist" aria-label="Nội dung buổi ${s.n}"></div>`;
+  refade();
+  main.appendChild(document.getElementById("tpl-"+n).content.cloneNode(true));
+  hydrate(n);
+  const subs=[...main.querySelectorAll(".sub")], tabs=main.querySelector(".tabs");
+  const key="plc-sub-"+n, saved=+store.get(key)||0;
+  subs.forEach((sec,i)=>{
+    const t=document.createElement("button"); t.type="button"; t.setAttribute("role","tab"); t.textContent=sec.dataset.label;
+    t.addEventListener("click",()=>{ show(i); store.set(key,String(i)); });
+    tabs.appendChild(t);
+  });
+  function show(i){ subs.forEach((s,j)=>s.classList.toggle("on",i===j)); [...tabs.children].forEach((t,j)=>t.setAttribute("aria-selected",i===j?"true":"false")); }
+  show(saved<subs.length?saved:0);
+  if(focus) document.getElementById("tab-"+n).scrollIntoView({block:"nearest",inline:"nearest"});
+}
+
+/* ---------- per-session renderers ---------- */
+function hydrate(n){
+  if(n===2){
+    main.querySelectorAll("[data-ind]").forEach(sec=>{
+      const k=+sec.dataset.ind;
+      let h=`<h3 style="color:var(--k${k})">${KNAMES[k]}</h3><div class="legend">${LNAMES.map((l,i)=>`<span style="background:var(--l${i});${i===3?'color:var(--l3ink)':''}">${l}</span>`).join("")}</div>`;
+      INDICATORS.filter(x=>x.k===k).forEach(x=>{
+        h+=`<article class="ind"><header><span class="kn k${k}">${x.code}</span><h4>${esc(x.name)}</h4><span class="forms">Dạng câu gợi ý: ${esc(x.forms)}</span></header>
+        <ol class="ladder">${x.L.map((t,i)=>`<li data-l="${i}"><b>${LNAMES[i]}</b>${esc(t)}</li>`).join("")}</ol></article>`;
+      });
+      sec.innerHTML=h;
+    });
+    main.querySelector("#examples").innerHTML=EXAMPLES.map(e=>`<div class="ex"><h4 style="margin-top:0">${chips(e.code)} ${esc(e.title)}</h4><p class="q">Câu hỏi: ${esc(e.q)}</p>
+      ${e.rows.map((r,i)=>`<div class="row"><div class="lv">${i}</div><div>${esc(r[0])}</div><div class="why">${esc(r[1])}</div></div>`).join("")}</div>`).join("");
+  }
+  if(n===3){ renderWeights(); }
+  if(n===4){ renderTM(); renderLookup(); renderQM(); }
+}
+
+const pct = x => (Math.round(x*1000)/10).toLocaleString("vi-VN")+"%";
+const num = x => (Math.round(x*10)/10).toLocaleString("vi-VN");
+function renderWeights(){
+  const W=DATA.weights, sec=main.querySelector("#w-sec");
+  const kcol=["#1d4ed8","#c2410c","#6d28d9"];
+  let h=`<h3>Trọng số kỹ năng</h3><div class="bar" role="img" aria-label="KN1 25%, KN2 40%, KN3 35%">${W.skills.slice(0,3).map((r,i)=>`<div style="width:${r[4]*100}%;background:${kcol[i]}">KN${i+1} ${pct(r[4])}</div>`).join("")}</div>
+  <p class="note">KN2 và KN3 là phần cốt lõi của "giải thích hiện tượng", nên chiếm 75% tổng trọng số.</p>
+  <h4>Kỹ năng × mức nhận thức (trọng số / điểm mục tiêu trên ${num(W.params[0][1])} điểm)</h4>
+  <div class="tbl"><table><thead><tr><th>Kỹ năng</th><th class="num">Biết</th><th class="num">Hiểu</th><th class="num">Vận dụng</th><th class="num">Tổng</th></tr></thead><tbody>`;
+  W.skills.forEach((r,i)=>{ const p=W.points[i]; const last=i===3;
+    h+=`<tr class="${last?'total':''}"><td>${last?esc(r[0]):inl(r[0])}</td>${[1,2,3,4].map(j=>`<td class="num">${pct(r[j])} / ${num(p[j])} đ</td>`).join("")}</tr>`; });
+  h+=`</tbody></table></div>
+  <h3>Trọng số chủ đề</h3><p class="note">Theo số tiết, có cờ đưa vào đề và hệ số ưu tiên. Cụm đo: A – cơ sở phân tử; B – NST, phân bào; C – Mendel.</p>
+  <div class="tbl"><table><thead><tr><th>Mã</th><th>Bài / chủ đề</th><th class="num">Số tiết</th><th>Cụm</th><th>Đưa vào đề</th><th class="num">Hệ số</th><th class="num">Trọng số</th><th class="num">Điểm đánh giá năng lực</th><th>Ghi chú</th></tr></thead><tbody>`;
+  W.topics.forEach(r=>{ const tot=!r[0];
+    h+=`<tr class="${tot?'total':''}"><td>${esc(r[0]||"")}</td><td>${esc(r[1])}</td><td class="num">${num(r[2])}</td><td>${esc(r[3]||"")}</td><td>${tot?"":(r[4]?"Có":"Không")}</td><td class="num">${tot?"":num(r[5])}</td><td class="num">${pct(r[7])}</td><td class="num">${num(r[8])}</td><td>${esc(r[9]||"")}</td></tr>`; });
+  h+=`</tbody></table></div>
+  <h3>Tổng hợp theo cụm đo</h3><div class="tbl"><table><thead><tr><th>Cụm</th><th>Tên cụm</th><th class="num">Tiết quy đổi</th><th class="num">Trọng số</th><th class="num">Điểm mục tiêu</th><th class="num">KN1</th><th class="num">KN2</th><th class="num">KN3</th></tr></thead><tbody>`;
+  W.clusters.forEach(r=>{ const tot=!r[0];
+    h+=`<tr class="${tot?'total':''}"><td>${esc(r[0]||"")}</td><td>${esc(r[1])}</td><td class="num">${num(r[2])}</td><td class="num">${pct(r[3])}</td><td class="num">${num(r[4])}</td><td class="num">${num(r[5])}</td><td class="num">${num(r[6])}</td><td class="num">${num(r[7])}</td></tr>`; });
+  h+=`</tbody></table></div>`;
+  sec.innerHTML=h;
+}
+const LOOKUP = [["TN", 1, 1, "Đúng: 1 điểm"], ["TLN", 1, 1.5, "Đúng, đủ: 1 điểm"], ["Đ/S chùm 4 ý", 2, 3, "0,5 điểm/ý"], ["Tự luận", 3, 5, "Rubric 0–3"], ["Tự luận (vẽ sơ đồ)", 3, 5, "Rubric 0–3"]];
+const QROWS = [[1, 1, "A", "T01", "Bài 37", "KN1", "KN1.1", "M2", "Biết", "TN", 1, "", "Đời sống – thực hành tách DNA", "Văn bản"], [2, 3, "B", "T04", "Bài 41", "KN1", "KN1.1", "M2", "Biết", "TN", 1, "", "Nông nghiệp – giống cây trồng", "Văn bản"], [3, 1, "C", "T07", "Bài 36", "KN1", "KN1.1", "M2", "Biết", "TN", 1, "", "Nông nghiệp – lai giống", "Văn bản"], [4, 1, "A", "T01", "Bài 35, 37", "KN1", "KN1.2", "M2", "Biết", "TN", 1, "", "Khái niệm nền", "Văn bản"], [5, 2, "A", "T02", "Bài 39", "KN1", "KN1.2", "M2", "Hiểu", "Đ/S chùm 4 ý", 2, "", "Học tập – tóm tắt bài", "Văn bản"], [6, 3, "B", "T05", "Bài 43", "KN1", "KN1.3", "M2", "Hiểu", "TLN", 1, "", "Nông nghiệp – giống lúa", "Văn bản, số liệu"], [7, 1, "C", "T07", "Bài 36", "KN1", "KN1.3", "M2", "Hiểu", "TLN", 1, "", "Nông nghiệp – lai giống", "Kí hiệu gene"], [8, 3, "B", "T08", "Bài 43", "KN1", "KN1.3", "M3", "Vận dụng", "TLN", 1, "", "Nông nghiệp – chăn nuôi gà", "Văn bản"], [9, 1, "C", "T07", "Bài 36", "KN1", "KN1.3", "M3", "Vận dụng", "TLN", 1, "", "Nông nghiệp – chọn giống cà chua", "Văn bản, số liệu"], [10, 2, "A", "T03", "Bài 38, 40", "KN2", "KN2.1", "M2", "Biết", "TN", 1, "S2", "An toàn thực phẩm", "Bảng kết quả"], [11, 3, "B", "T04", "Bài 41", "KN2", "KN2.1", "M2", "Biết", "TN", 1, "S5", "Sức khỏe – bệnh do đột biến NST", "Bảng số liệu"], [12, 3, "B", "T04", "Bài 41", "KN2", "KN2.1", "M3", "Hiểu", "TN", 1, "S5", "Sức khỏe – bệnh do đột biến NST", "Bảng số liệu"], [13, 1, "C", "T07", "Bài 36", "KN2", "KN2.2", "M1", "Biết", "TN", 1, "S1", "Lịch sử khoa học – thí nghiệm Mendel", "Bảng số liệu"], [14, 1, "C", "T07", "Bài 36", "KN2", "KN2.2", "M2", "Biết", "TN", 1, "S1", "Lịch sử khoa học – thí nghiệm Mendel", "Bảng số liệu"], [15, 1, "C", "T07", "Bài 36", "KN2", "KN2.2", "M2", "Hiểu", "Đ/S chùm 4 ý", 2, "S1", "Lịch sử khoa học – thí nghiệm Mendel", "Bảng số liệu"], [16, 1, "A", "T01", "Bài 37", "KN2", "KN2.2", "M2", "Hiểu", "TLN", 1, "S6", "Lịch sử khoa học – cấu trúc DNA", "Bảng số liệu"], [17, 2, "A", "T03", "Bài 38", "KN2", "KN2.3", "M2", "Hiểu", "Đ/S chùm 4 ý", 2, "S3", "Nông nghiệp – giống lúa", "Bảng số liệu"], [18, 2, "A", "T03", "Bài 38, 40", "KN2", "KN2.3", "Rubric 0–3", "Vận dụng", "Tự luận", 3, "S4", "An toàn thực phẩm", "Kết quả so sánh trình tự"], [19, 3, "B", "T05", "Bài 41, 43", "KN2", "KN2.4", "Rubric 0–3", "Vận dụng", "Tự luận", 3, "S5", "Sức khỏe – bệnh do đột biến NST", "Văn bản"], [20, 1, "A", "T01", "Bài 37", "KN3", "KN3.1", "M1", "Biết", "TN", 1, "", "Học tập – mô hình DNA", "Hình mô hình DNA"], [21, 3, "B", "T06", "Bài 42", "KN3", "KN3.1", "M1", "Biết", "TN", 1, "S7", "Thực hành – tiêu bản NST", "Ảnh tiêu bản có chú thích"], [22, 1, "C", "T07", "Bài 36", "KN3", "KN3.1", "M2", "Biết", "TN", 1, "S1", "Lịch sử khoa học – thí nghiệm Mendel", "Bảng số liệu"], [23, 1, "A", "T01", "Bài 37", "KN3", "KN3.1", "M1", "Biết", "TLN", 1, "", "Học tập – sơ đồ DNA", "Sơ đồ trình tự"], [24, 2, "A", "T02", "Bài 39", "KN3", "KN3.1", "M2", "Hiểu", "TLN", 1, "", "Học tập – bảng mã di truyền", "Bảng mã rút gọn"], [25, 3, "B", "T06", "Bài 42", "KN3", "KN3.1", "M2", "Hiểu", "TN", 1, "S7", "Thực hành – tiêu bản NST", "Bảng kết quả quan sát"], [26, 3, "B", "T08", "Bài 43", "KN3", "KN3.2", "Rubric 0–3", "Hiểu", "Tự luận (vẽ sơ đồ)", 3, "", "Đời sống – giới tính của con", "Văn bản → sơ đồ lai"], [27, 2, "C", "T07", "Bài 36", "KN3", "KN3.4", "M2", "Hiểu", "TLN", 1, "", "Nông nghiệp – lai giống", "Kí hiệu gene, tỉ lệ"], [28, 2, "A", "T02", "Bài 39, 40", "KN3", "KN3.3", "Rubric 0–3", "Vận dụng", "Tự luận (vẽ sơ đồ)", 3, "", "Sức khỏe – bệnh do đột biến gene", "Văn bản → sơ đồ cơ chế"], [29, 1, "C", "T07", "Bài 36", "KN3", "KN3.4", "M3", "Vận dụng", "TLN", 1, "", "Nông nghiệp – trồng cà chua", "Mô hình tỉ lệ"]];
+function renderLookup(){
+  const sec=main.querySelector("#look-sec");
+  sec.innerHTML=`<h3>Bảng tra dạng câu</h3>
+  <div class="tbl"><table><thead><tr><th>Dạng câu</th><th class="num">Điểm/câu</th><th class="num">Thời gian ước tính (phút)</th><th>Quy tắc chấm</th></tr></thead><tbody>
+  ${LOOKUP.map(r=>`<tr><td><b>${esc(r[0])}</b></td><td class="num">${num(r[1])}</td><td class="num">${num(r[2])}</td><td>${esc(r[3])}</td></tr>`).join("")}
+  </tbody></table></div>`;
+}
+
+/* ---------- xuất Excel ---------- */
+let DL;  // undefined: chưa rõ; null: không dùng được; object: capability downloads
+if(window.claude && typeof window.claude.use==="function"){
+  window.claude.use("downloads").then(d=>{ DL=d; if(d===null){ const b=document.getElementById("qm-x"); if(b) b.hidden=true; } }).catch(()=>{ DL=null; });
+} else { DL="local"; }
+async function exportQM(c,msg){
+  const say=t=>{ if(msg) msg.textContent=t; };
+  if(typeof XLSX==="undefined"){ say("Chưa tải được thư viện Excel, thử lại sau."); return; }
+  const rows=QROWS.filter(r=>!c||r[2]===c);
+  const head=["Câu","Cụm","Mã chủ đề","Bài (SGK)","Kỹ năng","Chỉ báo","Mức độ phức tạp (theo rubric)","Mức nhận thức","Dạng câu","Điểm","Câu hỏi","Đáp án","Quy tắc chấm","Điểm"];
+  const aoa=[["Ma trận câu hỏi"+(c?` – Cụm ${c}`:"")],[],head];
+  rows.forEach(r=>aoa.push([r[0],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[10],"","","",""]));
+  const n=rows.length, first=4, last=3+n;
+  aoa.push(["Tổng",`${n} câu`,"","","","","","","",null,"","","",""]);
+  const ws=XLSX.utils.aoa_to_sheet(aoa);
+  ws[XLSX.utils.encode_cell({r:last,c:9})]={t:"n",f:`SUM(J${first}:J${last})`,v:rows.reduce((a,r)=>a+r[10],0)};
+  ws["!cols"]=[6,6,10,11,9,9,16,12,18,7,50,30,36,7].map(w=>({wch:w}));
+  ws["!merges"]=[{s:{r:0,c:0},e:{r:0,c:13}}];
+  ws["!autofilter"]={ref:`A3:N${last}`};
+  const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,"Ma trận câu hỏi");
+  const buf=XLSX.write(wb,{bookType:"xlsx",type:"array"});
+  const name=`Ma_tran_cau_hoi${c?"_Cum_"+c:""}.xlsx`;
+  if(DL && DL!=="local"){
+    try{ await DL.save({filename:name,data:buf}); say("Đã xuất file."); }
+    catch(e){
+      const code=e&&e.code;
+      if(code==="declined") say("Đã hủy xuất file.");
+      else if(code==="rate_limited") say("Đang có hộp thoại lưu file, thử lại sau.");
+      else { say("Không xuất được file trong chế độ xem này."); }
+    }
+  } else if(DL==="local"){
+    const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([buf],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"})); a.download=name;
+    document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},1000); say("Đã xuất file.");
+  } else { say("Đang khởi tạo, thử lại sau giây lát."); }
+}
+function renderQM(){
+  const sec=main.querySelector("#qm-sec");
+  const W=["min-width:300px","min-width:180px","min-width:220px","min-width:70px"];
+  sec.innerHTML=`<h3>Ma trận câu hỏi</h3>
+  <p class="note">29 câu, 40 điểm. Cụm đo: A – cơ sở phân tử của di truyền; B – NST, phân bào, NST giới tính; C – quy luật di truyền của Mendel.</p>
+  <div class="toolbar" id="qm-f"><button type="button" class="on" data-c="">Tất cả</button><button type="button" data-c="A">Cụm A</button><button type="button" data-c="B">Cụm B</button><button type="button" data-c="C">Cụm C</button><span class="xmsg" id="qm-msg" role="status"></span><button type="button" class="export" id="qm-x" title="Xuất bảng đang hiển thị ra file Excel"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10.2l3.6-3.6 1.4 1.4-6 6-6-6 1.4-1.4 3.6 3.6V3zM4 19h16v2H4z"/></svg>Xuất Excel</button></div>
+  <div class="tbl"><table class="fit"><thead><tr><th class="num">Câu</th><th>Cụm</th><th>Mã<br>chủ đề</th><th>Bài<br>(SGK)</th><th>Kỹ năng</th><th>Chỉ báo</th><th>Mức độ phức tạp<br>(theo rubric)</th><th>Mức<br>nhận thức</th><th>Dạng câu</th><th class="num">Điểm</th><th>Câu hỏi</th><th>Đáp án</th><th>Quy tắc chấm</th><th class="num">Điểm</th></tr></thead>
+  <tbody id="qm-body"></tbody></table></div>`;
+  const body=sec.querySelector("#qm-body");
+  function draw(c){
+    const rs=QROWS.filter(r=>!c||r[2]===c);
+    let pts=0;
+    body.innerHTML=rs.map(r=>{ pts+=r[10];
+      return `<tr><td class="num">${r[0]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${esc(r[4])}</td><td>${chips(r[5])}</td><td>${chips(r[6])}</td><td>${esc(r[7])}</td><td>${esc(r[8])}</td><td>${esc(r[9])}</td><td class="num">${num(r[10])}</td>${W.map(w=>`<td style="${w}"></td>`).join("")}</tr>`; }).join("")
+      + `<tr class="total"><td colspan="2">Tổng</td><td colspan="7">${rs.length} câu</td><td class="num">${num(pts)}</td><td colspan="4"></td></tr>`;
+  }
+  draw("");
+  let cur="";
+  sec.querySelectorAll("#qm-f button[data-c]").forEach(b=>b.addEventListener("click",()=>{
+    sec.querySelectorAll("#qm-f button[data-c]").forEach(x=>x.classList.toggle("on",x===b)); cur=b.dataset.c; draw(cur);
+  }));
+  const xb=sec.querySelector("#qm-x"), msg=sec.querySelector("#qm-msg");
+  if(DL===null) xb.hidden=true;
+  xb.addEventListener("click",()=>exportQM(cur,msg));
+}
+function renderTM(){
+  const sec=main.querySelector("#tm-sec"), H=DATA.tmHeads;
+  const COLS=[0,1,2,5,6,7,8], MW={0:180,1:200,2:80,5:220,6:170,7:190,8:180};
+  let h=`<h3>Đặc điểm chung cho mọi nhiệm vụ</h3><dl class="gen">${DATA.tmGeneral.map(r=>`<dt>${esc(r[0])}</dt><dd>${inl(r[1])}</dd>`).join("")}</dl>
+  <h3>Mô hình nhiệm vụ theo chỉ báo</h3><div class="toolbar"><button type="button" data-f="0" class="on">Tất cả</button><button type="button" data-f="1">KN1</button><button type="button" data-f="2">KN2</button><button type="button" data-f="3">KN3</button></div>`;
+  for(const k of ["1","2","3"]){
+    const rows=DATA.tasks.filter(r=>r[0].startsWith("KN"+k+"."));
+    h+=`<div class="tm-block" data-k="${k}"><h4 style="color:var(--k${k})">${esc(KNAMES[k])}</h4>
+    <div class="tbl"><table class="tm-tbl"><thead><tr>${COLS.map(j=>`<th style="min-width:${MW[j]}px">${esc(H[j])}</th>`).join("")}</tr></thead><tbody>
+    ${rows.map(r=>{ const code=r[0].split(" ")[0], name=r[0].slice(code.length).trim();
+      return `<tr><td><span class="kn k${k}">${esc(code)}</span><br><b>${esc(name)}</b></td>${COLS.slice(1).map(j=>`<td${j===2?' style="white-space:nowrap"':''}>${inl(r[j])}</td>`).join("")}</tr>`; }).join("")}
+    </tbody></table></div></div>`;
+  }
+  sec.innerHTML=h;
+  sec.querySelectorAll(".toolbar button").forEach(b=>b.addEventListener("click",()=>{
+    sec.querySelectorAll(".toolbar button").forEach(x=>x.classList.toggle("on",x===b)); const f=b.dataset.f; sec.querySelectorAll(".tm-block").forEach(c=>c.hidden = f!=="0" && c.dataset.k!==f);
+  }));
+}
+
+{ const saved=store.get("plc-session"); const n=saved===null?0:+saved; if(n>0 && SESSIONS.some(s=>s.n===n&&!s.locked)) openSession(n,false); else openIndex(false); }
+</script>
+</body>
+</html>
