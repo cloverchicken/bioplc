@@ -199,6 +199,45 @@ button.toc-item:hover{border-color:var(--pri-200)}
 .toc-item .st.open{background:var(--ok-100);color:var(--ok-ink)}
 .toc-item .st.lk{background:var(--surface2);color:var(--faint)}
 @media (max-width:640px){.toc-item{grid-template-columns:36px 1fr;gap:4px 12px}.toc-item .w{padding-top:8px}.toc-item .c{grid-column:1 / -1}.toc-item .st{grid-column:1 / -1;justify-self:start}}
+/* ---------- tab Tong hop (khoa bang mat khau) ---------- */
+.synth-lock{max-width:440px;margin:26px auto;text-align:center;border:1px solid var(--line);border-radius:16px;padding:26px 24px;background:var(--surface);box-shadow:var(--shadow)}
+.synth-lock p{margin:6px 0 14px;font-size:.9rem;color:var(--body)}
+.synth-lock-row{display:flex;gap:8px;justify-content:center}
+.synth-lock-row input{flex:1;max-width:250px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;font:inherit;font-size:.9rem}
+.synth-lock-row button{padding:9px 18px;border:none;border-radius:8px;background:var(--pri);color:#fff;font:inherit;font-weight:700;font-size:.9rem;cursor:pointer}
+.synth-lock-row button:hover{background:var(--pri-h)}
+.synth-err{color:#b91c1c;font-weight:600}
+.synth-hero{display:flex;gap:16px;flex-wrap:wrap;border:1px solid var(--line);border-radius:16px;padding:20px;background:var(--surface)}
+.synth-hero-t{flex:1 1 300px}
+.synth-kicker{font-weight:700;letter-spacing:.08em;font-size:.75rem;color:var(--pri);text-transform:uppercase}
+.synth-hero-t h3{margin:4px 0;font-size:1.25rem;line-height:1.35;font-weight:700;color:var(--pri-d)}
+.synth-hero-t p{margin:0;color:var(--muted);font-size:.9rem}
+.synth-goal{flex:1 1 300px;background:var(--pri-50);border:1px solid var(--pri-100);border-radius:12px;padding:14px 16px;color:var(--pri-ink)}
+.synth-goal b{font-size:.9rem}
+.synth-goal p{margin:5px 0 0;font-size:.875rem;line-height:1.6}
+.cyc-step{cursor:pointer}
+.cyc-step:hover rect{stroke:var(--pri)}
+.cyc-step:focus{outline:none}
+.cyc-step:focus rect{stroke:var(--pri);stroke-width:2.5}
+.cyc-step.sel rect{fill:var(--pri-100);stroke:var(--pri);stroke-width:2.5}
+.synth-detail{margin-top:12px;border:1px solid var(--pri-200);background:var(--pri-50);border-radius:12px;padding:16px}
+.synth-detail-h{font-weight:700;color:var(--pri-d);font-size:1rem;margin-bottom:10px}
+.synth-detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:820px){.synth-detail-grid{grid-template-columns:1fr}}
+.synth-detail-grid span{display:block;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--pri);margin-bottom:4px}
+.synth-detail-grid p{margin:0;font-size:.9rem;line-height:1.6;color:var(--body)}
+.synth-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px}
+@media (max-width:1000px){.synth-grid{grid-template-columns:1fr}}
+.synth-panel{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--surface)}
+.synth-panel>h4{margin:0 0 11px;font-size:1.05rem;font-weight:700;color:var(--ink2)}
+.synth-cycle-panel{margin-top:12px}
+.synth-cycle-panel>h4{margin:0 0 10px}
+.synth-cycle-panel svg{width:100%;height:auto;display:block}
+.synth-tools{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+@media (max-width:1000px){.synth-tools{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.synth-tools{grid-template-columns:repeat(2,1fr)}}
+.synth-tool{border:1px solid var(--line);border-radius:10px;padding:11px 9px;text-align:center;font-size:.875rem;line-height:1.5;background:var(--surface2);color:var(--body)}
+.synth-foot{margin-top:12px;text-align:center;font-weight:700;font-size:.95rem;color:var(--pri-d);background:var(--pri-50);border:1px solid var(--pri-100);border-radius:999px;padding:11px 16px}
 @media print{.sticky .pills,.tabs,.toolbar{display:none}.sticky{position:static}.sub{display:block!important}}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -329,14 +368,14 @@ button.toc-item:hover{border-color:var(--pri-200)}
     <li><b>Câu mở</b> (trả lời ngắn, tự luận giải thích): chấm trực tiếp theo 4 mức của chỉ báo mà câu đó đo. Rubric của từng câu là bản cụ thể hóa các mô tả mức cho nội dung của câu.</li>
     <li><b>Câu đóng</b> (trắc nghiệm, Đúng/Sai): mỗi câu được thiết kế để <b>nhắm vào một mức</b> của chỉ báo (mức 1, 2 hoặc 3). Mức của HS được suy ra từ tổ hợp các câu đã làm đúng. Khi viết ngân hàng câu hỏi v.1, mỗi câu ghi kèm mã dạng <i>KN2.2-M2</i> (chỉ báo – mức nhắm tới).</li>
   </ul>
-  <h3>Ý nghĩa chung của 4 mức (thang SOLO)</h3>
+  <h3>Ý nghĩa chung của 4 mức (thang Bloom)</h3>
   <div class="tbl"><table>
-    <thead><tr><th>Mức</th><th>Tên</th><th>Tương ứng SOLO</th><th>Ý nghĩa chung cho mọi chỉ báo</th></tr></thead>
+    <thead><tr><th>Mức</th><th>Tên</th><th>Tương ứng Bloom</th><th>Ý nghĩa chung cho mọi chỉ báo</th></tr></thead>
     <tbody>
-      <tr><td><b>0</b></td><td>Chưa đạt</td><td>Tiền cấu trúc</td><td>Không trả lời, hoặc thông tin không liên quan, sai khoa học, chỉ lặp lại hiện tượng.</td></tr>
-      <tr><td><b>1</b></td><td>Đạt một phần</td><td>Đơn cấu trúc / Đa cấu trúc</td><td>Có một hoặc vài yếu tố đúng nhưng rời rạc, thiếu liên kết hoặc thiếu bước.</td></tr>
-      <tr><td><b>2</b></td><td>Đạt</td><td>Quan hệ</td><td>Các yếu tố đúng được nối thành một tổng thể mạch lạc; đáp ứng đầy đủ yêu cầu cần đạt của KHTN 9.</td></tr>
-      <tr><td><b>3</b></td><td>Vượt</td><td>Trừu tượng mở rộng</td><td>Như mức 2, và khái quát sang tình huống mới, xét giới hạn của dữ liệu hoặc mô hình, hoặc xét lời giải thích thay thế.</td></tr>
+      <tr><td><b>0</b></td><td>Chưa đạt</td><td>Chưa đạt mức Nhớ</td><td>Không trả lời, hoặc thông tin không liên quan, sai khoa học, chỉ lặp lại hiện tượng.</td></tr>
+      <tr><td><b>1</b></td><td>Đạt một phần</td><td>Nhớ – Hiểu</td><td>Có một hoặc vài yếu tố đúng nhưng rời rạc, thiếu liên kết hoặc thiếu bước.</td></tr>
+      <tr><td><b>2</b></td><td>Đạt</td><td>Vận dụng – Phân tích</td><td>Các yếu tố đúng được nối thành một tổng thể mạch lạc; đáp ứng đầy đủ yêu cầu cần đạt của KHTN 9.</td></tr>
+      <tr><td><b>3</b></td><td>Vượt</td><td>Đánh giá – Sáng tạo</td><td>Như mức 2, và khái quát sang tình huống mới, xét giới hạn của dữ liệu hoặc mô hình, hoặc xét lời giải thích thay thế.</td></tr>
     </tbody></table></div>
   <p><b>Mức 2 là mức chuẩn</b> – tương ứng với yêu cầu cần đạt của chương trình. Mức 3 mô tả HS vượt yêu cầu; việc giữ mức 3 cho HS lớp 9 là giả thuyết, được kiểm chứng qua tiến trình học tập.</p>
 </section>
@@ -388,9 +427,9 @@ button.toc-item:hover{border-color:var(--pri-200)}
   <h3>Behavioural indicators of the competency</h3>
   <p>Given a real-world phenomenon (with a description, data or a figure), a student is considered to demonstrate the competency if they:</p>
   <ul>
-    <li>(a) select and correctly apply the relevant biological concepts and laws <span class="kn k1">KN1</span></li>
-    <li>(b) use data and observations to support or refute a claim and state the causal chain explaining the phenomenon <span class="kn k2">KN2</span></li>
-    <li>(c) read, transform or construct representations (diagrams, tables, graphs, models) to present and support the explanation <span class="kn k3">KN3</span></li>
+    <li>(a) select and correctly apply the relevant biological concepts and laws <span class="kn k1">S1</span></li>
+    <li>(b) use data and observations to support or refute a claim and state the causal chain explaining the phenomenon <span class="kn k2">S2</span></li>
+    <li>(c) read, transform or construct representations (diagrams, tables, graphs, models) to present and support the explanation <span class="kn k3">S3</span></li>
   </ul>
   <p>The competency level is estimated from the combined results of the three skills, and each skill is also reported separately for diagnosis.</p>
   <h3>Key terms</h3>
@@ -411,24 +450,24 @@ button.toc-item:hover{border-color:var(--pri-200)}
     <thead><tr><th>Skill</th><th>Definition</th><th>Behavioural indicators</th><th>Not part of this skill</th><th>Example in Grade 9 Science</th><th>Main cognitive levels</th></tr></thead>
     <tbody>
       <tr>
-        <td><span class="kn k1">KN1</span><br><b>Knowledge retrieval</b></td>
+        <td><span class="kn k1">S1</span><br><b>Knowledge retrieval</b></td>
         <td>The ability to recall and correctly select the biological concepts, laws and principles appropriate to the real-world context presented.</td>
         <td>Given a phenomenon, the student:<ul><li>Identifies the biological concepts and laws related to the phenomenon;</li><li>Distinguishes closely related concepts and recognises scientifically incorrect statements;</li><li>Applies concepts and laws to the correct object in the situation.</li></ul></td>
-        <td>Stating definitions detached from context (rote recall, not included in the instrument); using data to argue (<span class="kn k2">KN2</span>); reading information from a figure (<span class="kn k3">KN3</span>).</td>
+        <td>Stating definitions detached from context (rote recall, not included in the instrument); using data to argue (<span class="kn k2">S2</span>); reading information from a figure (<span class="kn k3">S3</span>).</td>
         <td>"Which law does the albinism trait follow?"; "Which of the following statements about antibiotic-resistant bacteria is incorrect?"</td>
         <td>Remember – Understand (partly Apply)</td></tr>
       <tr>
-        <td><span class="kn k2">KN2</span><br><b>Using evidence to reason about cause–effect and relationships</b></td>
+        <td><span class="kn k2">S2</span><br><b>Using evidence to reason about cause–effect and relationships</b></td>
         <td>The ability to use scientific evidence (experimental data, observations) to support or refute a claim, and to build a logical causal chain that clarifies the mechanism of a phenomenon.</td>
         <td>Given a phenomenon with data, the student:<ul><li>States a claim answering the question;</li><li>Selects and cites appropriate evidence;</li><li>Links the evidence to the claim using a biological principle;</li><li>Builds a causal chain (mechanism).</li></ul></td>
-        <td>Merely naming a law without linking it to the data (<span class="kn k1">KN1</span>); merely reading values correctly from a table without using them to draw a conclusion (<span class="kn k3">KN3</span> – reading representations).</td>
+        <td>Merely naming a law without linking it to the data (<span class="kn k1">S1</span>); merely reading values correctly from a table without using them to draw a conclusion (<span class="kn k3">S3</span> – reading representations).</td>
         <td>"Based on the table of bacterial survival rates, do you agree with the claim 'bacteria transform themselves to resist the drug'? Explain."</td>
         <td>Understand – Apply</td></tr>
       <tr>
-        <td><span class="kn k3">KN3</span><br><b>Using models and multiple representations</b></td>
+        <td><span class="kn k3">S3</span><br><b>Using models and multiple representations</b></td>
         <td>The ability to identify, construct and use forms of representation (text, diagrams, images, tables, graphs, mathematical models) as mediating tools to illustrate and explain biological processes.</td>
         <td>The student:<ul><li>Reads and extracts information from representations;</li><li>Converts between forms of representation;</li><li>Constructs diagrams and models presenting a process or mechanism;</li><li>Uses models (including mathematical ratios) to predict and explain.</li></ul></td>
-        <td>Arguing why the data support a claim (<span class="kn k2">KN2</span>); knowing the name of a concept shown in a figure (<span class="kn k1">KN1</span>).</td>
+        <td>Arguing why the data support a claim (<span class="kn k2">S2</span>); knowing the name of a concept shown in a figure (<span class="kn k1">S1</span>).</td>
         <td>"From the pedigree, construct the cross diagram for the couple in generation II"; "Draw a diagram from gene to red blood cell shape".</td>
         <td>Understand – Apply</td></tr>
     </tbody></table></div>
@@ -438,20 +477,20 @@ button.toc-item:hover{border-color:var(--pri-200)}
   <h3>Boundaries between the three skills</h3>
   <p>Real student work usually shows several skills at once. For consistent scoring, the team uses the <b>classification rule based on where the student fails</b>:</p>
   <ul>
-    <li>The student fails because they <b>do not know, or choose the wrong, concept</b> → lacking <span class="kn k1">KN1</span></li>
-    <li>The student knows the concept and reads the data correctly but <b>cannot link the data to the conclusion</b> or the <b>causal chain breaks</b> → lacking <span class="kn k2">KN2</span></li>
-    <li>The student fails because they <b>cannot read, convert or create a representation</b> → lacking <span class="kn k3">KN3</span></li>
+    <li>The student fails because they <b>do not know, or choose the wrong, concept</b> → lacking <span class="kn k1">S1</span></li>
+    <li>The student knows the concept and reads the data correctly but <b>cannot link the data to the conclusion</b> or the <b>causal chain breaks</b> → lacking <span class="kn k2">S2</span></li>
+    <li>The student fails because they <b>cannot read, convert or create a representation</b> → lacking <span class="kn k3">S3</span></li>
   </ul>
   <h4>Example: classifying behaviours within one albinism item cluster</h4>
   <div class="tbl"><table>
     <thead><tr><th>Student behaviour in the work</th><th>Skill</th><th>Reason</th></tr></thead>
     <tbody>
-      <tr><td>States "albinism is determined by a recessive gene"</td><td><span class="kn k1">KN1</span></td><td>Names the correct concept/law</td></tr>
-      <tr><td>Points out on the pedigree: parents normal, child affected</td><td><span class="kn k3">KN3</span></td><td>Reads information from a representation</td></tr>
-      <tr><td>Uses that fact to conclude the trait is recessive</td><td><span class="kn k2">KN2</span></td><td>Uses evidence to reach a claim</td></tr>
-      <tr><td>Sets up the cross Aa × Aa → 1/4 aa</td><td><span class="kn k3">KN3</span></td><td>Converts a pedigree into a cross diagram; uses a ratio model</td></tr>
-      <tr><td>Explains why receiving two recessive genes leads to no pigment synthesis</td><td><span class="kn k2">KN2</span></td><td>Builds a causal chain (mechanism)</td></tr>
-      <tr><td>Predicts the probability that the next child is affected</td><td><span class="kn k3">KN3</span></td><td>Uses a model to predict</td></tr>
+      <tr><td>States "albinism is determined by a recessive gene"</td><td><span class="kn k1">S1</span></td><td>Names the correct concept/law</td></tr>
+      <tr><td>Points out on the pedigree: parents normal, child affected</td><td><span class="kn k3">S3</span></td><td>Reads information from a representation</td></tr>
+      <tr><td>Uses that fact to conclude the trait is recessive</td><td><span class="kn k2">S2</span></td><td>Uses evidence to reach a claim</td></tr>
+      <tr><td>Sets up the cross Aa × Aa → 1/4 aa</td><td><span class="kn k3">S3</span></td><td>Converts a pedigree into a cross diagram; uses a ratio model</td></tr>
+      <tr><td>Explains why receiving two recessive genes leads to no pigment synthesis</td><td><span class="kn k2">S2</span></td><td>Builds a causal chain (mechanism)</td></tr>
+      <tr><td>Predicts the probability that the next child is affected</td><td><span class="kn k3">S3</span></td><td>Uses a model to predict</td></tr>
     </tbody></table></div>
 
   <h3>Content and context scope</h3>
@@ -477,26 +516,26 @@ button.toc-item:hover{border-color:var(--pri-200)}
 
 <section class="sub" data-label="Method and the 4 levels">
   <h3>Purpose and use</h3>
-  <p>The indicator framework is the <b>evidence model</b> of the instrument (Mislevy, Steinberg &amp; Almond, 2003): it states clearly which behaviours in student work show that a student has a skill, and at what level. The framework has <b>11 indicators</b> for 3 skills (<span class="kn k1">KN1</span> 3; <span class="kn k2">KN2</span> 4; <span class="kn k3">KN3</span> 4), each described at 4 levels.</p>
+  <p>The indicator framework is the <b>evidence model</b> of the instrument (Mislevy, Steinberg &amp; Almond, 2003): it states clearly which behaviours in student work show that a student has a skill, and at what level. The framework has <b>11 indicators</b> for 3 skills (<span class="kn k1">S1</span> 3; <span class="kn k2">S2</span> 4; <span class="kn k3">S3</span> 4), each described at 4 levels.</p>
   <ul>
     <li><b>Open items</b> (short answer, explanatory essay): scored directly against the 4 levels of the indicator the item measures. Each item's rubric is the concretisation of the level descriptions for that item's content.</li>
-    <li><b>Closed items</b> (multiple choice, True/False): each item is designed to <b>target one level</b> of an indicator (Level 1, 2 or 3). A student's level is inferred from the combination of items answered correctly. When writing item bank v.1, each item carries a code such as <i>KN2.2-M2</i> (indicator – targeted level).</li>
+    <li><b>Closed items</b> (multiple choice, True/False): each item is designed to <b>target one level</b> of an indicator (Level 1, 2 or 3). A student's level is inferred from the combination of items answered correctly. When writing item bank v.1, each item carries a code such as <i>S2.2-L2</i> (indicator – targeted level).</li>
   </ul>
-  <h3>General meaning of the 4 levels (SOLO taxonomy)</h3>
+  <h3>General meaning of the 4 levels (Bloom's taxonomy)</h3>
   <div class="tbl"><table>
-    <thead><tr><th>Level</th><th>Name</th><th>SOLO correspondence</th><th>General meaning for all indicators</th></tr></thead>
+    <thead><tr><th>Level</th><th>Name</th><th>Bloom correspondence</th><th>General meaning for all indicators</th></tr></thead>
     <tbody>
-      <tr><td><b>0</b></td><td>Not achieved</td><td>Pre-structural</td><td>No answer, or irrelevant or scientifically incorrect information, or merely restating the phenomenon.</td></tr>
-      <tr><td><b>1</b></td><td>Partially achieved</td><td>Uni-structural / Multi-structural</td><td>One or a few correct but disconnected elements, lacking links or steps.</td></tr>
-      <tr><td><b>2</b></td><td>Achieved</td><td>Relational</td><td>Correct elements connected into a coherent whole; fully meets the Grade 9 Science requirements.</td></tr>
-      <tr><td><b>3</b></td><td>Exceeds</td><td>Extended abstract</td><td>As Level 2, plus generalisation to a new situation, consideration of the limits of the data or model, or consideration of an alternative explanation.</td></tr>
+      <tr><td><b>0</b></td><td>Not achieved</td><td>Below Remember</td><td>No answer, or irrelevant or scientifically incorrect information, or merely restating the phenomenon.</td></tr>
+      <tr><td><b>1</b></td><td>Partially achieved</td><td>Remember – Understand</td><td>One or a few correct but disconnected elements, lacking links or steps.</td></tr>
+      <tr><td><b>2</b></td><td>Achieved</td><td>Apply – Analyze</td><td>Correct elements connected into a coherent whole; fully meets the Grade 9 Science requirements.</td></tr>
+      <tr><td><b>3</b></td><td>Exceeds</td><td>Evaluate – Create</td><td>As Level 2, plus generalisation to a new situation, consideration of the limits of the data or model, or consideration of an alternative explanation.</td></tr>
     </tbody></table></div>
   <p><b>Level 2 is the standard level</b> – corresponding to the curriculum requirements. Level 3 describes students exceeding the requirements; keeping Level 3 for Grade 9 students is a hypothesis, to be verified through learning progressions.</p>
 </section>
 
-<section class="sub" data-label="KN1 – Knowledge retrieval" data-ind="1"></section>
-<section class="sub" data-label="KN2 – Evidence & reasoning" data-ind="2"></section>
-<section class="sub" data-label="KN3 – Models & representations" data-ind="3"></section>
+<section class="sub" data-label="S1 – Knowledge retrieval" data-ind="1"></section>
+<section class="sub" data-label="S2 – Evidence & reasoning" data-ind="2"></section>
+<section class="sub" data-label="S3 – Models & representations" data-ind="3"></section>
 
 <section class="sub" data-label="Worked examples by level">
   <p class="note">The examples below are for illustration only and are not real student work.</p>
@@ -520,7 +559,7 @@ button.toc-item:hover{border-color:var(--pri-200)}
     <tbody>
       <tr><td>Competency definition</td><td>1</td></tr>
       <tr><td>Definitions of the 3 component skills</td><td>3</td></tr>
-      <tr><td>Behavioural indicators (KN1.1–KN3.4)</td><td>11</td></tr>
+      <tr><td>Behavioural indicators (S1.1–S3.4)</td><td>11</td></tr>
       <tr><td>Level-descriptor set for each skill</td><td>3</td></tr>
       <tr><td>Rubrics (generic rubric + rubrics of the 4 constructed-response items)</td><td>5</td></tr>
     </tbody></table></div>
@@ -545,6 +584,89 @@ button.toc-item:hover{border-color:var(--pri-200)}
 <section class="sub" data-label="Ba bài kiểm tra độc lập theo cụm" data-label-en="Three independent cluster tests" id="w-tests-sec"></section>
 <section class="sub" data-label="Trọng số kỹ năng" data-label-en="Skill weights" id="w-sec"></section>
 <section class="sub" data-label="Trọng số chủ đề" data-label-en="Topic weights" id="w-topic-sec"></section>
+</template>
+
+<!-- ================= TAB TỔNG HỢP (khóa bằng mật khẩu) ================= -->
+<template id="tpl-th">
+<div class="synth">
+  <div class="synth-hero">
+    <div class="synth-hero-t">
+      <div class="synth-kicker">PLC TRỌNG ĐIỂM 1</div>
+      <h3>Năng lực giải thích hiện tượng Sinh học</h3>
+      <p>Từ thiết kế bài học đến phát triển năng lực học sinh</p>
+    </div>
+    <div class="synth-goal"><b>Mục tiêu</b>
+      <p>Giúp giáo viên xây dựng và triển khai các hoạt động học tập phát triển năng lực giải thích hiện tượng sinh học cho học sinh, thông qua mô hình PLC và các công cụ hỗ trợ hiệu quả.</p>
+    </div>
+  </div>
+
+  
+
+  <section class="synth-panel synth-cycle-panel">
+      <h4>Chu trình phát triển &amp; đánh giá năng lực — 10 bước</h4>
+      <svg viewBox="0 0 1240 398" role="img" aria-label="PLC cycle diagram"><defs><marker id="sarw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"></path></marker></defs><line x1="229" y1="59" x2="267" y2="59" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></line><line x1="477" y1="59" x2="515" y2="59" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></line><line x1="725" y1="59" x2="763" y2="59" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></line><line x1="973" y1="59" x2="1011" y2="59" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></line><line x1="1116" y1="106" x2="1116" y2="214" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></line><line x1="1011" y1="261" x2="973" y2="261" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></line><line x1="763" y1="261" x2="725" y2="261" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></line><line x1="515" y1="261" x2="477" y2="261" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></line><line x1="267" y1="261" x2="229" y2="261" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></line><path d="M124 214 V164 H620 V106" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></path><line x1="124" y1="306" x2="124" y2="330" stroke="#64748b" stroke-width="2" stroke-dasharray="6 5"></line><line x1="245" y1="352" x2="271" y2="352" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></line><g class="cyc-step" data-step="b1" tabindex="0" role="button" aria-label="Xem chi tiết bước 1"><title>Xem chi tiết bước 1</title><rect x="24" y="16" width="200" height="86" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="124" y="51.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">1. Định nghĩa</text><text x="124" y="75.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">năng lực mục tiêu</text></g><g class="cyc-step" data-step="b2" tabindex="0" role="button" aria-label="Xem chi tiết bước 2"><title>Xem chi tiết bước 2</title><rect x="272" y="16" width="200" height="86" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="372" y="39.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">2. Xây dựng chỉ báo</text><text x="372" y="63.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">quan sát được và</text><text x="372" y="87.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">tiến trình học tập</text></g><g class="cyc-step" data-step="b3" tabindex="0" role="button" aria-label="Xem chi tiết bước 3"><title>Xem chi tiết bước 3</title><rect x="520" y="16" width="200" height="86" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="620" y="39.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">3. Lập bản thiết kế</text><text x="620" y="63.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">đánh giá và ma trận</text><text x="620" y="87.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">trọng số</text></g><g class="cyc-step" data-step="b4" tabindex="0" role="button" aria-label="Xem chi tiết bước 4"><title>Xem chi tiết bước 4</title><rect x="768" y="16" width="200" height="86" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="868" y="39.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">4. Thiết kế nhiệm vụ</text><text x="868" y="63.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">học tập và câu hỏi</text><text x="868" y="87.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">đánh giá</text></g><g class="cyc-step" data-step="b5" tabindex="0" role="button" aria-label="Xem chi tiết bước 5"><title>Xem chi tiết bước 5</title><rect x="1016" y="16" width="200" height="86" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="1116" y="39.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">5. Thẩm định khung</text><text x="1116" y="63.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">trước, rồi đến</text><text x="1116" y="87.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">câu hỏi</text></g><g class="cyc-step" data-step="b6" tabindex="0" role="button" aria-label="Xem chi tiết bước 6"><title>Xem chi tiết bước 6</title><rect x="1016" y="218" width="200" height="86" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="1116" y="253.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">6. Phỏng vấn nhận thức</text><text x="1116" y="277.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">và chỉnh sửa</text></g><g class="cyc-step" data-step="b7" tabindex="0" role="button" aria-label="Xem chi tiết bước 7"><title>Xem chi tiết bước 7</title><rect x="768" y="218" width="200" height="86" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="868" y="253.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">7. Thử nghiệm bộ công cụ</text><text x="868" y="277.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">với học sinh</text></g><g class="cyc-step" data-step="b8" tabindex="0" role="button" aria-label="Xem chi tiết bước 8"><title>Xem chi tiết bước 8</title><rect x="520" y="218" width="200" height="86" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="620" y="241.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">8. Chấm bài làm của</text><text x="620" y="265.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">học sinh và hiệu chuẩn</text><text x="620" y="289.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">người chấm</text></g><g class="cyc-step" data-step="b9" tabindex="0" role="button" aria-label="Xem chi tiết bước 9"><title>Xem chi tiết bước 9</title><rect x="272" y="218" width="200" height="86" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="372" y="241.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">9. Phân tích chất lượng</text><text x="372" y="265.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">câu hỏi và bằng chứng</text><text x="372" y="289.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">học sinh</text></g><g class="cyc-step" data-step="b10" tabindex="0" role="button" aria-label="Xem chi tiết bước 10"><title>Xem chi tiết bước 10</title><rect x="24" y="218" width="200" height="86" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="124" y="253.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">10. Tinh chỉnh khung,</text><text x="124" y="277.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">nhiệm vụ và rubric</text></g><rect x="8" y="332" width="232" height="40" rx="20" fill="#ffffff" stroke="#4f46e5" stroke-width="1.5"></rect><text x="124" y="357" text-anchor="middle" font-size="15" font-weight="400" fill="#3730a3">Áp dụng kết quả vào dạy học</text><rect x="276" y="323" width="440" height="58" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="496" y="344.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">Cải tiến dạy học và lên kế hoạch</text><text x="496" y="368.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">chu trình PLC tiếp theo</text></svg>
+      <div class="synth-detail" id="th-detail" hidden></div>
+    </section>
+
+  <div class="synth-grid">
+    
+    <section class="synth-panel">
+      <h4>Công cụ &amp; Học liệu hỗ trợ</h4>
+      <div class="synth-tools">
+        <div class="synth-tool">Rubric / Checklist đánh giá</div>
+        <div class="synth-tool">Phiếu học tập &amp; Nhiệm vụ học tập</div>
+        <div class="synth-tool">Nền tảng số (Canvas, LMS, …)</div>
+        <div class="synth-tool">Tài liệu tham khảo &amp; nguồn mở</div>
+        <div class="synth-tool">Công cụ công nghệ (Thí nghiệm ảo, mô phỏng, …)</div>
+        <div class="synth-tool">Học liệu minh họa (giáo án, video, hình ảnh, …)</div>
+      </div>
+    </section>
+    
+  </div>
+
+  <div class="synth-foot">Cùng nhau học hỏi – Cùng nhau phát triển – Vì năng lực học sinh!</div>
+</div>
+</template>
+
+<template id="tpl-th-en">
+<div class="synth">
+  <div class="synth-hero">
+    <div class="synth-hero-t">
+      <div class="synth-kicker">PLC FOCUS 1</div>
+      <h3>Competency in Explaining Biological Phenomena</h3>
+      <p>From lesson design to developing student competency</p>
+    </div>
+    <div class="synth-goal"><b>Goal</b>
+      <p>Help teachers design and implement learning activities that develop students' competency in explaining biological phenomena, through the PLC model and effective supporting tools.</p>
+    </div>
+  </div>
+
+  
+
+  <section class="synth-panel synth-cycle-panel">
+      <h4>Competency development &amp; assessment cycle — 10 steps</h4>
+      <svg viewBox="0 0 1240 398" role="img" aria-label="PLC cycle diagram"><defs><marker id="sarw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"></path></marker></defs><line x1="229" y1="59" x2="267" y2="59" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></line><line x1="477" y1="59" x2="515" y2="59" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></line><line x1="725" y1="59" x2="763" y2="59" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></line><line x1="973" y1="59" x2="1011" y2="59" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></line><line x1="1116" y1="106" x2="1116" y2="214" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></line><line x1="1011" y1="261" x2="973" y2="261" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></line><line x1="763" y1="261" x2="725" y2="261" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></line><line x1="515" y1="261" x2="477" y2="261" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></line><line x1="267" y1="261" x2="229" y2="261" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></line><path d="M124 214 V164 H620 V106" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></path><line x1="124" y1="306" x2="124" y2="330" stroke="#64748b" stroke-width="2" stroke-dasharray="6 5"></line><line x1="245" y1="352" x2="271" y2="352" stroke="#64748b" stroke-width="2.2" marker-end="url(#sarw)" fill="none"></line><g class="cyc-step" data-step="b1" tabindex="0" role="button" aria-label="View step details: step 1"><title>View step details: step 1</title><rect x="24" y="16" width="200" height="86" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="124" y="51.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">1. Define the target</text><text x="124" y="75.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">competency</text></g><g class="cyc-step" data-step="b2" tabindex="0" role="button" aria-label="View step details: step 2"><title>View step details: step 2</title><rect x="272" y="16" width="200" height="86" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="372" y="39.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">2. Develop observable</text><text x="372" y="63.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">indicators and a</text><text x="372" y="87.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">learning progression</text></g><g class="cyc-step" data-step="b3" tabindex="0" role="button" aria-label="View step details: step 3"><title>View step details: step 3</title><rect x="520" y="16" width="200" height="86" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="620" y="39.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">3. Build the assessment</text><text x="620" y="63.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">blueprint and</text><text x="620" y="87.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">weighting matrix</text></g><g class="cyc-step" data-step="b4" tabindex="0" role="button" aria-label="View step details: step 4"><title>View step details: step 4</title><rect x="768" y="16" width="200" height="86" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="868" y="39.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">4. Design learning</text><text x="868" y="63.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">tasks and assessment</text><text x="868" y="87.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">items</text></g><g class="cyc-step" data-step="b5" tabindex="0" role="button" aria-label="View step details: step 5"><title>View step details: step 5</title><rect x="1016" y="16" width="200" height="86" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="1116" y="39.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">5. Validate the</text><text x="1116" y="63.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">framework first,</text><text x="1116" y="87.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">then the items</text></g><g class="cyc-step" data-step="b6" tabindex="0" role="button" aria-label="View step details: step 6"><title>View step details: step 6</title><rect x="1016" y="218" width="200" height="86" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="1116" y="253.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">6. Conduct cognitive</text><text x="1116" y="277.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">interviews and revise</text></g><g class="cyc-step" data-step="b7" tabindex="0" role="button" aria-label="View step details: step 7"><title>View step details: step 7</title><rect x="768" y="218" width="200" height="86" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="868" y="253.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">7. Pilot the assessment</text><text x="868" y="277.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">with students</text></g><g class="cyc-step" data-step="b8" tabindex="0" role="button" aria-label="View step details: step 8"><title>View step details: step 8</title><rect x="520" y="218" width="200" height="86" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="620" y="253.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">8. Score student work</text><text x="620" y="277.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">and calibrate raters</text></g><g class="cyc-step" data-step="b9" tabindex="0" role="button" aria-label="View step details: step 9"><title>View step details: step 9</title><rect x="272" y="218" width="200" height="86" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="372" y="241.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">9. Analyze item</text><text x="372" y="265.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">performance and</text><text x="372" y="289.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">student evidence</text></g><g class="cyc-step" data-step="b10" tabindex="0" role="button" aria-label="View step details: step 10"><title>View step details: step 10</title><rect x="24" y="218" width="200" height="86" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="124" y="241.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">10. Refine the</text><text x="124" y="265.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">framework, tasks,</text><text x="124" y="289.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">and rubrics</text></g><rect x="8" y="332" width="232" height="40" rx="20" fill="#ffffff" stroke="#4f46e5" stroke-width="1.5"></rect><text x="124" y="357" text-anchor="middle" font-size="15" font-weight="400" fill="#3730a3">Apply findings to teaching</text><rect x="276" y="323" width="440" height="58" rx="12" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"></rect><text x="496" y="344.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">Improve instruction and plan</text><text x="496" y="368.5" text-anchor="middle" font-size="15" font-weight="400" fill="#1e293b">the next PLC cycle</text></svg>
+      <div class="synth-detail" id="th-detail" hidden></div>
+    </section>
+
+  <div class="synth-grid">
+    
+    <section class="synth-panel">
+      <h4>Supporting tools &amp; materials</h4>
+      <div class="synth-tools">
+        <div class="synth-tool">Assessment rubrics / checklists</div>
+        <div class="synth-tool">Worksheets &amp; learning tasks</div>
+        <div class="synth-tool">Digital platforms (Canvas, LMS, …)</div>
+        <div class="synth-tool">Reference materials &amp; open resources</div>
+        <div class="synth-tool">Technology tools (virtual labs, simulations, …)</div>
+        <div class="synth-tool">Model materials (lesson plans, videos, images, …)</div>
+      </div>
+    </section>
+    
+  </div>
+
+  <div class="synth-foot">Learning together – Growing together – For student competency!</div>
+</div>
 </template>
 
 <script>
@@ -645,9 +767,9 @@ const EXAMPLES = [
 
 /* ---------- English content data ---------- */
 const SESSIONS_EN={
-  1:["Operational definitions of the 3 component skills","Understand the aims and roadmap of the 10 PLC sessions (Weeks 1–45); agree on operational definitions of KN1–KN3, the Grade 9 Science content scope, and the intended uses of scores."],
+  1:["Operational definitions of the 3 component skills","Understand the aims and roadmap of the 10 PLC sessions (Weeks 1–45); agree on operational definitions of S1–S3, the Grade 9 Science content scope, and the intended uses of scores."],
   2:["Indicator set and hypothetical learning progression","Break the 3 skills down into observable behavioural indicators, describe 4 levels for each indicator and arrange them into a hypothetical learning progression; approve Behavioural Indicator Framework v.1."],
-  3:["Determining the weighting matrix","Finalise weighting matrix v2 for Lessons 35–43, organised as 3 independent cluster-based tests (Test A: 11 items, 17 points, 25 minutes; Test B: 9 items, 13 points, 20 minutes; Test C: 9 items, 10 points, 15 minutes; total 29 items, 40 points): skill × cognitive-level weights (KN1 25% – KN2 40% – KN3 35%), topic weights by number of periods and priority coefficient; as the basis for writing the 3 cluster tests and the item bank."],
+  3:["Determining the weighting matrix","Finalise weighting matrix v2 for Lessons 35–43, organised as 3 independent cluster-based tests (Test A: 11 items, 17 points, 25 minutes; Test B: 9 items, 13 points, 20 minutes; Test C: 9 items, 10 points, 15 minutes; total 29 items, 40 points): skill × cognitive-level weights (S1 25% – S2 40% – S3 35%), topic weights by number of periods and priority coefficient; as the basis for writing the 3 cluster tests and the item bank."],
   4:["Reviewing the question matrix","Review the 11-indicator task model and the question matrix of the common item set (29 items, 40 points): check each item's indicator, complexity level, cluster and item type; assign the writing of item content, answer keys and scoring rules."],
   5:["Framework and item validation, cognitive interviews","Decide keep/revise/drop for each component of the competency descriptor set (the competency definition and the 3 skills, 11 indicators, 3 level-descriptor sets, rubric) and each item of the 29-item question set based on expert validation results; complete student cognitive interviews for the 3 cluster tests and compile the list of revisions needed before the pilot."],
   6:["Analysing validation and cognitive-interview data","Analyse the cognitive interviews to finalise item bank v.3 and scoring rubrics & guides v.3; finalise the pilot design and administration pack."],
@@ -658,103 +780,103 @@ const SESSIONS_EN={
 };
 const ST=s=>LANG==="en"?(SESSIONS_EN[s.n]||[])[0]||s.title:s.title;
 const SG=s=>LANG==="en"?(SESSIONS_EN[s.n]||[])[1]||s.goal:s.goal;
-const KNAMES_EN={1:"KN1 – Knowledge retrieval",2:"KN2 – Using evidence for causal and relational reasoning",3:"KN3 – Using models and multiple representations"};
+const KNAMES_EN={1:"S1 – Knowledge retrieval",2:"S2 – Using evidence for causal and relational reasoning",3:"S3 – Using models and multiple representations"};
 const LNAMES_EN=["Level 0 – Not achieved","Level 1 – Partially achieved","Level 2 – Achieved","Level 3 – Exceeds"];
 const INDICATORS_EN=[
- {k:1, code:"KN1.1", name:"Identifies the biological concepts and laws related to the phenomenon", forms:"Multiple choice; short answer", L:[
+ {k:1, code:"S1.1", name:"Identifies the biological concepts and laws related to the phenomenon", forms:"Multiple choice; short answer", L:[
   "Does not state, or states an unrelated concept (e.g. attributing albinism to \"lack of sunlight\").",
   "States the correct general field (heredity, evolution) but does not identify the specific concept or law.",
   "States the correct specific concept or law governing the phenomenon (e.g. a recessive gene on an autosome, the law of segregation).",
   "As Level 2, and explains why that concept fits better than a closely related one (e.g. why it is heredity rather than environmentally induced variation)."]},
- {k:1, code:"KN1.2", name:"Distinguishes closely related concepts and recognises scientifically incorrect statements", forms:"True/False clusters; multiple choice", L:[
+ {k:1, code:"S1.2", name:"Distinguishes closely related concepts and recognises scientifically incorrect statements", forms:"True/False clusters; multiple choice", L:[
   "Confuses concepts (gene = chromosome = DNA); accepts incorrect statements.",
   "Distinguishes them only partially; recognises obviously incorrect statements but misses statements containing common misconceptions.",
   "Uses closely related concepts correctly; recognises statements containing common misconceptions (e.g. \"bacteria transform themselves to adapt\").",
   "As Level 2, and pinpoints the error and corrects it into a scientifically correct statement."]},
- {k:1, code:"KN1.3", name:"Applies concepts and laws to the correct object in a situation", forms:"Short answer; short essay", L:[
+ {k:1, code:"S1.3", name:"Applies concepts and laws to the correct object in a situation", forms:"Short answer; short essay", L:[
   "Does not apply, or applies to the wrong object (e.g. assigns the wrong genotype to a person in a pedigree).",
   "Applies correctly to one object or one step; incorrect or missing for other objects or steps.",
   "Applies correctly to all relevant objects (e.g. correctly determines the genotypes of the father, mother and child).",
   "Applies correctly in a modified situation not seen in the textbook (e.g. with additional information about grandparents or siblings)."]},
- {k:2, code:"KN2.1", name:"States a claim answering the question", forms:"Multiple choice (choosing a claim); essay", L:[
+ {k:2, code:"S2.1", name:"States a claim answering the question", forms:"Multiple choice (choosing a claim); essay", L:[
   "Does not state, or states a claim that does not answer the question, merely restating the phenomenon.",
   "States a claim but it is vague or only partly correct.",
   "States a clear, scientifically correct claim that directly answers the question.",
   "As Level 2, and states the conditions or scope under which the claim holds (e.g. \"when antibiotics are under-dosed\")."]},
- {k:2, code:"KN2.2", name:"Selects and cites appropriate evidence", forms:"Multiple choice; short answer; essay", L:[
+ {k:2, code:"S2.2", name:"Selects and cites appropriate evidence", forms:"Multiple choice; short answer; essay", L:[
   "Uses no data or observations; or uses irrelevant information.",
   "Cites one correct piece of evidence but not enough to draw a conclusion, or cites it together with irrelevant data.",
   "Cites sufficient necessary evidence, accurately, with specific figures.",
   "As Level 2, and identifies which piece of evidence is decisive, or states the limits of the data (small sample size, no control)."]},
- {k:2, code:"KN2.3", name:"Links evidence to the claim using a biological principle", forms:"Explanatory essay; True/False cluster (checking each reasoning link)", L:[
+ {k:2, code:"S2.3", name:"Links evidence to the claim using a biological principle", forms:"Explanatory essay; True/False cluster (checking each reasoning link)", L:[
   "No reasoning, or reasoning based on belief or everyday experience.",
   "Some reasoning but without using a biological principle, or merely restating the evidence.",
   "Uses the correct biological principle to explain why the evidence supports or refutes the claim.",
   "As Level 2, and uses evidence to consider and refute an alternative explanation."]},
- {k:2, code:"KN2.4", name:"Builds a causal chain (mechanism)", forms:"Explanatory essay", L:[
+ {k:2, code:"S2.4", name:"Builds a causal chain (mechanism)", forms:"Explanatory essay", L:[
   "Merely describes the phenomenon, with no causal relation.",
   "States cause and effect but lacks the mechanism in between (skips steps), or the links are disconnected.",
   "A continuous chain with all the main links, in the correct order, scientifically correct.",
   "As Level 2, and connects levels of organisation (molecule → cell → body → population), or identifies a factor that changes the chain."]},
- {k:3, code:"KN3.1", name:"Reads and extracts information from representations", forms:"Multiple choice; short answer", L:[
+ {k:3, code:"S3.1", name:"Reads and extracts information from representations", forms:"Multiple choice; short answer", L:[
   "Misreads conventions (confuses male/female symbols in a pedigree, confuses graph axes).",
   "Reads direct information correctly (one value, one individual) but does not recognise trends or relationships.",
   "Reads correctly and recognises trends and relationships in the representation.",
   "Combines information from two or more representations to derive new information."]},
- {k:3, code:"KN3.2", name:"Converts between forms of representation", forms:"Short answer; essay (drawing)", L:[
+ {k:3, code:"S3.2", name:"Converts between forms of representation", forms:"Short answer; essay (drawing)", L:[
   "Cannot convert, or the new representation distorts the original information.",
   "Converts partially; incorrect or missing conventions (missing symbols, wrong axis labels).",
   "Converts correctly and completely, with correct conventions (pedigree → cross diagram; table → graph).",
   "As Level 2, and selects the most suitable form of representation for the purpose and explains why."]},
- {k:3, code:"KN3.3", name:"Constructs diagrams/models presenting a process or mechanism", forms:"Essay (drawing a diagram)", L:[
+ {k:3, code:"S3.3", name:"Constructs diagrams/models presenting a process or mechanism", forms:"Essay (drawing a diagram)", L:[
   "The drawing does not represent the process (an illustrative picture).",
   "The diagram has components but lacks relationships (meaningless arrows) or lacks steps.",
   "The diagram has all components, correct relationships, and process names written on the arrows.",
   "As Level 2, and uses the diagram to explain a modified case, or states the diagram's limits."]},
- {k:3, code:"KN3.4", name:"Uses models (including mathematical ratios) to predict and explain", forms:"Multiple choice; short answer; essay", L:[
+ {k:3, code:"S3.4", name:"Uses models (including mathematical ratios) to predict and explain", forms:"Multiple choice; short answer; essay", L:[
   "Does not use a model; predicts by intuition.",
   "Uses a model but applies or interprets it incorrectly (e.g. reads a 3:1 ratio as \"certainly 3 healthy children and 1 affected child\").",
   "Uses the model correctly to predict and interprets the meaning of probability correctly.",
   "As Level 2, and states the limits of the prediction (each birth is independent; with few children the actual ratio may deviate)."]}
 ];
 const EXAMPLES_EN=[
- {code:"KN2.4", title:"Causal chain: antibiotic-resistant bacteria", q:"Why does repeated under-dosing of antibiotics make the drug lose its effect?", rows:[
+ {code:"S2.4", title:"Causal chain: antibiotic-resistant bacteria", q:"Why does repeated under-dosing of antibiotics make the drug lose its effect?", rows:[
   ["\"Because the bacteria get used to the drug.\"","A description with no mechanism; contains the misconception of \"self-adaptation\""],
   ["\"Because there are drug-resistant bacteria, so the drug loses its effect.\"","Has cause and effect but lacks the selection mechanism in between"],
   ["\"In the bacterial population, some individuals already carry a drug-resistance gene. The drug kills the non-resistant ones; the resistant ones survive and reproduce, so over successive rounds the proportion of resistant bacteria rises and the drug loses its effect.\"","A continuous chain: pre-existing variation → selection → reproduction → change in proportion"],
   ["As Level 2, plus: \"Under-dosing lets many weakly resistant bacteria survive, so selection happens faster; the resistance gene is passed to the next generation, so the whole population changes.\"","Links the individual level to the population level; identifies the factor (dosage) that changes the chain"]]},
- {code:"KN3.4", title:"Using a model: probability of an albino child", q:"Both parents have genotype Aa. They plan to have 4 children. Will exactly 1 child certainly have albinism?", rows:[
+ {code:"S3.4", title:"Using a model: probability of an albino child", q:"Both parents have genotype Aa. They plan to have 4 children. Will exactly 1 child certainly have albinism?", rows:[
   ["\"Maybe yes, maybe no, it depends on luck.\"","Does not use the genetic model"],
   ["\"Yes, because the ratio is 3 normal : 1 albino.\"","Uses the model but misinterprets the ratio as a certain count"],
   ["\"Not certainly. At each birth, the probability of an albino child is 1/4; the 3:1 ratio is a probability, not a certain number of children.\"","Uses the model correctly and interprets the meaning of probability correctly"],
   ["As Level 2, plus: \"Each birth is independent, so all 4 children could be normal, or 2 could be affected; with few children, the actual ratio often deviates from 3:1.\"","States the limit of the prediction when applied to one specific family"]]},
- {code:"KN1.3", title:"Applying a law to objects in a situation", q:"In a pedigree, the parents (generation II) are normal and have an albino child; the maternal grandfather (generation I) has albinism. Determine the genotypes of the father, mother and child.", rows:[
+ {code:"S1.3", title:"Applying a law to objects in a situation", q:"In a pedigree, the parents (generation II) are normal and have an albino child; the maternal grandfather (generation I) has albinism. Determine the genotypes of the father, mother and child.", rows:[
   ["\"Father AA, mother AA, child aa.\"","Incorrect application: AA × AA parents cannot have an aa child"],
   ["\"The child is aa; the parents are normal so they are AA.\"","Correct for the child, wrong for the parents"],
   ["\"The child is aa. The child receives one a from the father and one a from the mother, so the father is Aa and the mother is Aa.\"","Correct for all relevant objects"],
   ["As Level 2, plus: \"The mother is certainly Aa because the grandfather (aa) passed a to her, and since she is normal she must carry A.\"","Uses additional generation-I information; applies the law in an extended situation"]]}
 ];
 const WSTR_EN={
-  skills:["KN1 – Knowledge retrieval","KN2 – Evidence and causal reasoning","KN3 – Models and multiple representations","Total"],
+  skills:["S1 – Knowledge retrieval","S2 – Evidence and causal reasoning","S3 – Models and multiple representations","Total"],
   topics:[["T01","Lessons 35, 37: Introduction to heredity; Nucleic acids",null],["T02","Lesson 39: Replication, transcription, translation","Does not assess enzymes, Okazaki fragments or promoter regions (outside the Grade 9 Science curriculum)"],["T03","Lessons 38, 40: Gene mutation; From gene to trait","Includes genome specificity and applications of DNA analysis"],["T04","Lesson 41: Chromosome structure and mutation","Does not assess nucleosomes or the 30 nm fibre"],["T05","Lesson 43: Mitosis, meiosis","Does not assess crossing over"],["T06","Lesson 42: Practical: observing chromosome slides","A practical lesson – assessed with a written test"],["T07","Lesson 36: Mendel's laws of inheritance","Coefficient 1.5: the main source of ratio models, probability and real experimental data"],["T08","Lesson 43: Sex chromosomes; linkage","Does not assess sex-linked inheritance"]],
   clusters:[["A","Molecular basis of heredity (DNA – gene – protein, gene mutation, DNA analysis)"],["B","Chromosomes, cell division, sex chromosomes, linkage"],["C","Mendel's laws of inheritance"]],
   total:"Total"
 };
 const TM_EN={
-  heads:["Indicator","Evidence to collect (what the student must do)","Suitable clusters when writing the item bank","Suggested contexts","Required stimulus material","Difficulty adjustment variables (M1 → M3)","Support level","Item type and student product","Scoring rule (evidence rule)","Items in the pilot test"],
+  heads:["Indicator","Evidence to collect (what the student must do)","Suitable clusters when writing the item bank","Suggested contexts","Required stimulus material","Difficulty adjustment variables (L1 → L3)","Support level","Item type and student product","Scoring rule (evidence rule)","Items in the pilot test"],
   general:[["Structure","Two formats: (1) an item cluster – a shared stimulus + 2–6 sub-items (cluster code S); (2) a standalone item with an embedded stimulus – a short stimulus within the item stem. Both formats progress from Remember to Apply."],["Context types","Health (diseases caused by gene/chromosome mutations); agriculture (selective breeding of crops); food safety (DNA analysis); daily life (sex ratio, inherited characteristics)."],["Representation limits for Grade 9","Graphs ≤ 2 variables, ≤ 3 lines/bars; tables ≤ about 5 × 4 cells; cross diagrams ≤ 2 gene pairs; a shortened genetic code table including only the codons needed."],["Avoid","Named real people; paternity testing; content from Lessons 44–48 and content outside the Grade 9 Science curriculum; situations that could harm students."],["Language","Short sentences, one requirement per item; bold the command verb (choose, cite, explain, draw); terminology following the Grade 9 Science textbook."]],
   tasks:[
-   ["KN1.1 Identifying the related concept or law","Names correctly the concept/law governing the phenomenon","A, B, C","Mutation diseases; selective breeding","A short description of the phenomenon (2–4 sentences)","M1: name the general field → M2: the specific concept → M3: explain why that concept fits better than a near concept","No prompting","4-option MCQ; distractors = near concepts (replication/transcription/translation; gene vs chromosome mutation)","Correct/incorrect (1 point)","A1, A2, B2, C2"],
-   ["KN1.2 Distinguishing near concepts, recognising incorrect statements","Chooses true/false correctly for statements containing common misconceptions","A, C","Gene and chromosome mutation; dominance – recessiveness","A situation + 4 statements","Number of statements containing misconceptions; the 'closeness' of the concepts; M3: a new situation not seen in the textbook","None","True/False cluster of 4 statements, or MCQ","0.5 points/statement (T/F); 1 point (MCQ)","A4, C7"],
-   ["KN1.3 Applying a concept to the correct object","Determines genotypes, chromosome numbers and sex-determining gametes for the correct object","B, C","Chromosome syndromes; sex determination; test cross","A description of a cross, a karyotype","Number of objects to determine; M3: infer genotypes from cross results","Gene symbols may be given","Short answer (genotype, number, chromosome)","Correct/incorrect (1 point)","B3, B6, C3"],
-   ["KN2.1 Stating a claim answering the question","Chooses the claim consistent with the data","A, B","Food DNA analysis; newborn statistics","A data table or sequence-comparison result","Directness of the data; number of plausible distractor claims","The question states the variable to consider","4-option MCQ","Correct/incorrect (1 point)","A7, B5"],
-   ["KN2.2 Selecting and citing appropriate evidence","Cites correctly and sufficiently the data supporting or refuting the claim","A, C","DNA analysis; Mendel's experimental data","A data table containing both relevant and irrelevant data","Proportion of distracting data; number of pieces of evidence to cite; M3: state the limits of the data","May or may not prompt how many pieces of evidence to cite","T/F cluster; short answer","0.5 points/statement; 1 point (short answer correct and sufficient)","A9, C6"],
-   ["KN2.3 Linking evidence to the claim with a principle","Explains why the data support or refute the claim, based on a biological principle","A","Beneficial/harmful mutation depending on the environment; genome specificity","A claim to verify + a data table/sequence","M2: one-directional reasoning → M3: consider an alternative explanation, the limits of the data","The question states the Claim – Evidence – Reasoning structure","T/F cluster (example); essay","Rubric 0–3 (SP-T02-04) or 0.5 points/statement","A6, A10"],
-   ["KN2.4 Building a causal chain","Writes a chain cause → mechanism → effect without skipping steps","A, B","Diseases caused by gene/chromosome mutations","A description of the phenomenon + an illustrative figure","Number of links; number of organisational levels to connect (molecule → cell → body)","May give the first and last points of the chain","Explanatory essay","Rubric 0–3","A5b, B4b"],
-   ["KN3.1 Reading and extracting information from representations","Reads conventions correctly; recognises trends/relationships","A, B, C","Code table, DNA sequence, karyotype, cross results table","One clear representation","M1: direct information → M2: comparison, simple calculation → M3: combine 2 representations","Symbol legend provided","MCQ; short answer","Correct/incorrect (1 point)","A3, A8, B1, C1"],
-   ["KN3.2 Converting between representations","Converts a cross-results table → cross diagram; a text description → diagram","B, C","Chromosome syndromes; crossing experiments","A source representation (table, description)","Diagram frame given or not; number of generations; M3: choose the suitable form of representation","An empty diagram frame may be given","Essay (drawing, completing a diagram)","Rubric 0–3","B4a, C5"],
-   ["KN3.3 Building a diagram/model of a mechanism","Draws a diagram with all components and relationships, naming the process","A","From gene to trait","A description of a disease phenomenon","Number of components to name independently; M3: use the diagram for a modified case","A list of components may be given","Essay (drawing a diagram)","Rubric 0–3","A5a"],
-   ["KN3.4 Using a model (including ratios) to predict","Predicts using Mendelian ratios and interprets probability correctly","C","Crop selective breeding","Parental genotypes or cross results","M1: compute a ratio → M2: probability for one individual → M3: state limits when the number of individuals is small","Parental genotypes may be given","Short answer; essay","Correct/incorrect (1 point) or rubric 0–3","C4"]]
+   ["S1.1 Identifying the related concept or law","Names correctly the concept/law governing the phenomenon","A, B, C","Mutation diseases; selective breeding","A short description of the phenomenon (2–4 sentences)","L1: name the general field → L2: the specific concept → L3: explain why that concept fits better than a near concept","No prompting","4-option MCQ; distractors = near concepts (replication/transcription/translation; gene vs chromosome mutation)","Correct/incorrect (1 point)","A1, A2, B2, C2"],
+   ["S1.2 Distinguishing near concepts, recognising incorrect statements","Chooses true/false correctly for statements containing common misconceptions","A, C","Gene and chromosome mutation; dominance – recessiveness","A situation + 4 statements","Number of statements containing misconceptions; the 'closeness' of the concepts; L3: a new situation not seen in the textbook","None","True/False cluster of 4 statements, or MCQ","0.5 points/statement (T/F); 1 point (MCQ)","A4, C7"],
+   ["S1.3 Applying a concept to the correct object","Determines genotypes, chromosome numbers and sex-determining gametes for the correct object","B, C","Chromosome syndromes; sex determination; test cross","A description of a cross, a karyotype","Number of objects to determine; L3: infer genotypes from cross results","Gene symbols may be given","Short answer (genotype, number, chromosome)","Correct/incorrect (1 point)","B3, B6, C3"],
+   ["S2.1 Stating a claim answering the question","Chooses the claim consistent with the data","A, B","Food DNA analysis; newborn statistics","A data table or sequence-comparison result","Directness of the data; number of plausible distractor claims","The question states the variable to consider","4-option MCQ","Correct/incorrect (1 point)","A7, B5"],
+   ["S2.2 Selecting and citing appropriate evidence","Cites correctly and sufficiently the data supporting or refuting the claim","A, C","DNA analysis; Mendel's experimental data","A data table containing both relevant and irrelevant data","Proportion of distracting data; number of pieces of evidence to cite; L3: state the limits of the data","May or may not prompt how many pieces of evidence to cite","T/F cluster; short answer","0.5 points/statement; 1 point (short answer correct and sufficient)","A9, C6"],
+   ["S2.3 Linking evidence to the claim with a principle","Explains why the data support or refute the claim, based on a biological principle","A","Beneficial/harmful mutation depending on the environment; genome specificity","A claim to verify + a data table/sequence","L2: one-directional reasoning → L3: consider an alternative explanation, the limits of the data","The question states the Claim – Evidence – Reasoning structure","T/F cluster (example); essay","Rubric 0–3 (SP-T02-04) or 0.5 points/statement","A6, A10"],
+   ["S2.4 Building a causal chain","Writes a chain cause → mechanism → effect without skipping steps","A, B","Diseases caused by gene/chromosome mutations","A description of the phenomenon + an illustrative figure","Number of links; number of organisational levels to connect (molecule → cell → body)","May give the first and last points of the chain","Explanatory essay","Rubric 0–3","A5b, B4b"],
+   ["S3.1 Reading and extracting information from representations","Reads conventions correctly; recognises trends/relationships","A, B, C","Code table, DNA sequence, karyotype, cross results table","One clear representation","L1: direct information → L2: comparison, simple calculation → L3: combine 2 representations","Symbol legend provided","MCQ; short answer","Correct/incorrect (1 point)","A3, A8, B1, C1"],
+   ["S3.2 Converting between representations","Converts a cross-results table → cross diagram; a text description → diagram","B, C","Chromosome syndromes; crossing experiments","A source representation (table, description)","Diagram frame given or not; number of generations; L3: choose the suitable form of representation","An empty diagram frame may be given","Essay (drawing, completing a diagram)","Rubric 0–3","B4a, C5"],
+   ["S3.3 Building a diagram/model of a mechanism","Draws a diagram with all components and relationships, naming the process","A","From gene to trait","A description of a disease phenomenon","Number of components to name independently; L3: use the diagram for a modified case","A list of components may be given","Essay (drawing a diagram)","Rubric 0–3","A5a"],
+   ["S3.4 Using a model (including ratios) to predict","Predicts using Mendelian ratios and interprets probability correctly","C","Crop selective breeding","Parental genotypes or cross results","L1: compute a ratio → L2: probability for one individual → L3: state limits when the number of individuals is small","Parental genotypes may be given","Short answer; essay","Correct/incorrect (1 point) or rubric 0–3","C4"]]
 };
 const TYPE_EN={"TN":"MCQ","TLN":"Short answer","Đ/S chùm 4 ý":"True/False cluster (4 statements)","Tự luận":"Essay","Tự luận (vẽ sơ đồ)":"Essay (drawing)"};
 const RULE_EN={"TN":"Correct: 1 point","TLN":"Correct and complete: 1 point","Đ/S chùm 4 ý":"0.5 points per statement","Tự luận":"Rubric 0–3","Tự luận (vẽ sơ đồ)":"Rubric 0–3"};
@@ -765,9 +887,9 @@ const lessonD=b=>LANG==="en"?b.replace("Bài","Lesson"):b;
 const UI={
   vi:{session:"Buổi",goal:"Mục tiêu:",lockedTip:"Buổi này đang khóa – nội dung sẽ cập nhật sau",
     testsH:"Ba bài kiểm tra độc lập theo cụm",testsNote:"Đề được tổ chức thành 3 bài kiểm tra độc lập, mỗi bài ứng với một cụm đo và có thời lượng riêng; HS làm từng bài ở các đợt khác nhau. Trọng số kỹ năng toàn phần (KN1 25% – KN2 40% – KN3 35%) là của cả bộ 3 bài: điểm từng kỹ năng chỉ đầy đủ sau khi HS làm cả 3 bài, vì mỗi bài chỉ chứa một phần chỉ báo. Số câu, điểm và điểm theo kỹ năng dưới đây là phân bổ thực tế của ma trận câu hỏi; thời lượng làm bài: A 25 phút, B 20 phút, C 15 phút.",
-    tTest:"Bài",tCluster:"Cụm",tItems:"Số câu",tPoints:"Điểm",tEst:"Ước tính (phút)",tDur:"Thời lượng bài (phút)",tTotal:"Tổng 3 bài",
+    tTest:"Bài",tCluster:"Cụm",tItems:"Số câu",tPoints:"Điểm",tDur:"Thời lượng bài (phút)",tTotal:"Tổng 3 bài",
     skillW:"Trọng số kỹ năng",skillNote:"KN2 và KN3 là phần cốt lõi của \"giải thích hiện tượng\", nên chiếm 75% tổng trọng số.",skillXH:"Kỹ năng × mức nhận thức (trọng số / điểm mục tiêu trên 40 điểm)",cSkill:"Kỹ năng",cRem:"Biết",cUnd:"Hiểu",cApp:"Vận dụng",cTot:"Tổng",pts:"đ",
-    topicH:"Trọng số chủ đề",topicNote:"Theo số tiết, có cờ đưa vào đề và hệ số ưu tiên. Cụm đo: A – cơ sở phân tử; B – NST, phân bào; C – Mendel.",hCode:"Mã",hTopic:"Bài / chủ đề",hPeriods:"Số tiết",hCluster:"Cụm",hIncl:"Đưa vào đề",hCoef:"Hệ số",hWeight:"Trọng số",hCPoints:"Điểm đánh giá năng lực",hNote:"Ghi chú",yes:"Có",no:"Không",
+    topicH:"Trọng số chủ đề",topicNote:"Theo số tiết và hệ số ưu tiên. Cụm đo: A – cơ sở phân tử; B – NST, phân bào; C – Mendel.",hCode:"Mã",hTopic:"Bài / chủ đề",hPeriods:"Số tiết",hCluster:"Cụm",hCoef:"Hệ số",hWeight:"Trọng số",hCPoints:"Điểm đánh giá năng lực",hNote:"Ghi chú",yes:"Có",no:"Không",
     clusH:"Tổng hợp theo cụm đo",hClName:"Tên cụm",hWPeriods:"Tiết quy đổi",hTPoints:"Điểm mục tiêu",
     tmCommon:"Đặc điểm chung cho mọi nhiệm vụ",tmAll:"Tất cả",
     tmcH:"Mô hình nhiệm vụ theo cụm đo",tmcNote:"Cùng 11 chỉ báo của mô hình nhiệm vụ, trình bày lại theo cụm đo. Cột cuối chỉ liệt kê các câu trong đề pilot thuộc cụm đó (mã theo cụm).",tmcCluster:"Cụm",tmcTarget:"điểm mục tiêu",tmcPilot:"Câu trong đề pilot (thuộc cụm)",clusFil:"Cụm",
@@ -778,10 +900,10 @@ const UI={
     xNoLib:"Chưa tải được thư viện Excel, thử lại sau.",xSaved:"Đã xuất file.",xDeclined:"Đã hủy xuất file.",xRate:"Đang có hộp thoại lưu file, thử lại sau.",xFail:"Không xuất được file trong chế độ xem này.",xInit:"Đang khởi tạo, thử lại sau giây lát.",
     forms:"Dạng câu gợi ý: ",ques:"Câu hỏi: "},
   en:{session:"Session",goal:"Goal:",lockedTip:"This session is locked – content will be updated later",
-    testsH:"Three independent cluster-based tests",testsNote:"The assessment is organised as 3 independent tests, each corresponding to one measurement cluster with its own sitting; students take the tests in separate rounds. The overall skill weights (KN1 25% – KN2 40% – KN3 35%) apply to the whole set of 3 tests: a skill score is only complete after a student has taken all 3 tests, because each test contains only part of the indicators. Item counts, points and per-skill points below are the actual allocation of the question matrix; allotted time: A 25 minutes, B 20 minutes, C 15 minutes.",
-    tTest:"Test",tCluster:"Cluster",tItems:"Items",tPoints:"Points",tEst:"Estimate (min)",tDur:"Test duration (min)",tTotal:"Total (3 tests)",
-    skillW:"Skill weights",skillNote:"KN2 and KN3 are the core of \"explaining phenomena\", so they account for 75% of the total weight.",skillXH:"Skill × cognitive level (weight / target points out of 40)",cSkill:"Skill",cRem:"Remember",cUnd:"Understand",cApp:"Apply",cTot:"Total",pts:"pts",
-    topicH:"Topic weights",topicNote:"By number of periods, with an inclusion flag and a priority coefficient. Measurement clusters: A – molecular basis; B – chromosomes and cell division; C – Mendel.",hCode:"Code",hTopic:"Lesson / topic",hPeriods:"Periods",hCluster:"Cluster",hIncl:"Included",hCoef:"Coefficient",hWeight:"Weight",hCPoints:"Competency points",hNote:"Notes",yes:"Yes",no:"No",
+    testsH:"Three independent cluster-based tests",testsNote:"The assessment is organised as 3 independent tests, each corresponding to one measurement cluster with its own sitting; students take the tests in separate rounds. The overall skill weights (S1 25% – S2 40% – S3 35%) apply to the whole set of 3 tests: a skill score is only complete after a student has taken all 3 tests, because each test contains only part of the indicators. Item counts, points and per-skill points below are the actual allocation of the question matrix; allotted time: A 25 minutes, B 20 minutes, C 15 minutes.",
+    tTest:"Test",tCluster:"Cluster",tItems:"Items",tPoints:"Points",tDur:"Test duration (min)",tTotal:"Total (3 tests)",
+    skillW:"Skill weights",skillNote:"S2 and S3 are the core of \"explaining phenomena\", so they account for 75% of the total weight.",skillXH:"Skill × cognitive level (weight / target points out of 40)",cSkill:"Skill",cRem:"Remember",cUnd:"Understand",cApp:"Apply",cTot:"Total",pts:"pts",
+    topicH:"Topic weights",topicNote:"By number of periods and a priority coefficient. Measurement clusters: A – molecular basis; B – chromosomes and cell division; C – Mendel.",hCode:"Code",hTopic:"Lesson / topic",hPeriods:"Periods",hCluster:"Cluster",hCoef:"Coefficient",hWeight:"Weight",hCPoints:"Competency points",hNote:"Notes",yes:"Yes",no:"No",
     clusH:"Summary by measurement cluster",hClName:"Cluster name",hWPeriods:"Weighted periods",hTPoints:"Target points",
     tmCommon:"Common features of all tasks",tmAll:"All",
     tmcH:"Task model by measurement cluster",tmcNote:"The same 11 indicators of the task model, presented by measurement cluster. The last column lists only the pilot-test items belonging to that cluster (cluster-based codes).",tmcCluster:"Cluster",tmcTarget:"target points",tmcPilot:"Pilot items (this cluster)",clusFil:"Cluster",
@@ -795,7 +917,9 @@ const UI={
 
 /* ---------- helpers ---------- */
 const esc = s => String(s ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-const chips = h => h.replace(/KN([123])(?:\.[\dx])?(?:–KN\d\.\d)?/g, m => `<span class="kn k${m[2]}">${m}</span>`);
+const chips = h => LANG==="en"
+  ? h.replace(/(?:KN|S)([123])(?:\.[\dx])?(?:–(?:KN|S)\d\.\d)?/g, m => `<span class="kn k${m.match(/[123]/)[0]}">${m.replace(/KN/g,"S")}</span>`)
+  : h.replace(/KN([123])(?:\.[\dx])?(?:–KN\d\.\d)?/g, m => `<span class="kn k${m[2]}">${m}</span>`);
 const inl = s => chips(esc(s));
 function block(s){
   const lines = String(s||"").split("\n").map(l=>l.trim()).filter(Boolean);
@@ -845,6 +969,14 @@ SESSIONS.forEach(s=>{
   else { b.title=s.title; b.addEventListener("click",()=>openSession(s.n,true)); }
   rail.appendChild(b);
 });
+{ const b=document.createElement("button");
+  b.className="pill"; b.type="button"; b.setAttribute("role","tab"); b.id="tab-th";
+  b.innerHTML=`Tổng hợp${lockSvg}`;
+  b.title="Tổng hợp – cần mật khẩu để mở xem";
+  b.setAttribute("aria-label","Tổng hợp (đang khóa)");
+  b.addEventListener("click",()=>openSynth(true));
+  rail.appendChild(b);
+}
 function refade(){ main.classList.remove("fade-in"); void main.offsetWidth; main.classList.add("fade-in"); }
 
 /* ---------- session ---------- */
@@ -887,6 +1019,76 @@ function openSession(n,focus){
   if(focus) document.getElementById("tab-"+n).scrollIntoView({block:"nearest",inline:"nearest"});
 }
 
+/* ---------- tab Tong hop: khoa bang mat khau ---------- */
+const SYNTH_PW="bioplc2627";
+function synthOpen(){ try{ return sessionStorage.getItem("plc-th-open")==="1"; }catch(e){ return false; } }
+function openSynth(focus){
+  store.set("plc-session","th"); selectRail("tab-th");
+  if(synthOpen()) renderSynthContent(); else renderSynthLock();
+  if(focus){ const b=document.getElementById("tab-th"); if(b) b.scrollIntoView({block:"nearest",inline:"nearest"}); }
+}
+function renderSynthLock(){
+  const EN=LANG==="en";
+  main.innerHTML=`<div class="s-head"><span class="meta">${EN?"Synthesis":"Tổng hợp"}</span><h2>${EN?"Locked content":"Nội dung đang khóa"}</h2></div>
+  <div class="synth-lock">
+    <p>${EN?"This synthesis tab requires a password to view its content.":"Tab Tổng hợp cần mật khẩu để xem nội dung."}</p>
+    <div class="synth-lock-row"><input type="password" id="th-pw" placeholder="${EN?"Enter password":"Nhập mật khẩu"}" autocomplete="off"><button type="button" id="th-go">${EN?"Unlock":"Mở khóa"}</button></div>
+    <p class="synth-err" id="th-err" hidden>${EN?"Incorrect password. Please try again.":"Mật khẩu chưa đúng, vui lòng thử lại."}</p>
+  </div>`;
+  refade();
+  const inp=document.getElementById("th-pw"), go=document.getElementById("th-go");
+  const attempt=()=>{ if(inp.value===SYNTH_PW){ try{ sessionStorage.setItem("plc-th-open","1"); }catch(e){} applyLang(); renderSynthContent(); } else { document.getElementById("th-err").hidden=false; inp.value=""; inp.focus(); } };
+  go.addEventListener("click",attempt);
+  inp.addEventListener("keydown",e=>{ if(e.key==="Enter") attempt(); });
+  inp.focus();
+}
+function renderSynthContent(){
+  main.innerHTML=`<div class="s-head"><span class="meta">${LANG==="en"?"Synthesis":"Tổng hợp"}</span><h2>${LANG==="en"?"PLC Focus 1 at a glance":"Tổng quan PLC Trọng điểm 1"}</h2></div>`;
+  refade();
+  const tpl=document.getElementById(LANG==="en"?"tpl-th-en":"tpl-th")||document.getElementById("tpl-th");
+  main.appendChild(tpl.content.cloneNode(true));
+  wireSynth();
+}
+
+
+const STEPD={
+vi:{
+b1:{t:"Định nghĩa năng lực mục tiêu",goal:"Thống nhất cách hiểu về năng lực trọng điểm mà tổ sẽ phát triển và đánh giá trong chu trình, neo vào yêu cầu cần đạt của chương trình.",method:"Nghiên cứu yêu cầu cần đạt và các khung năng lực tham chiếu; thảo luận trong PLC để phân rã năng lực thành các kỹ năng thành phần và chốt định nghĩa vận hành của từng kỹ năng.",out:"Định nghĩa năng lực và bộ kỹ năng thành phần được chốt bằng văn bản, là chuẩn đối chiếu cho mọi bước sau."},
+b2:{t:"Xây dựng chỉ báo quan sát được và tiến trình học tập",goal:"Chuyển định nghĩa thành các hành vi quan sát được và mô tả cách năng lực phát triển qua các mức.",method:"Phân rã mỗi kỹ năng thành chỉ báo hành vi; mô tả từng chỉ báo theo 4 mức (thang Bloom), với mức chuẩn neo vào yêu cầu của khối lớp; sắp xếp các mức thành tiến trình học tập giả thuyết.",out:"Bộ chỉ báo kèm mô tả 4 mức và tiến trình học tập giả thuyết."},
+b3:{t:"Lập bản thiết kế đánh giá và ma trận trọng số",goal:"Quyết định đo năng lực ở nội dung nào, bằng bao nhiêu câu và với trọng lượng bao nhiêu, trước khi soạn câu hỏi.",method:"Lập ma trận hai chiều kỹ năng × chủ đề; phân bổ điểm số và thời lượng theo trọng số; quyết định cấu trúc đề (một bài hay nhiều bài theo cụm).",out:"Bản thiết kế đánh giá và ma trận trọng số được chốt, làm căn cứ soạn câu hỏi."},
+b4:{t:"Thiết kế nhiệm vụ học tập và câu hỏi đánh giá",goal:"Tạo các nhiệm vụ và câu hỏi đo đúng chỉ báo, đúng mức đã định trong bản thiết kế.",method:"Xây mô hình nhiệm vụ cho từng chỉ báo (bằng chứng cần thu, biến điều chỉnh độ khó, mức hỗ trợ, dạng câu, quy tắc chấm); soạn câu hỏi, đáp án, rubric và gắn mã truy vết tới chỉ báo – mức – chủ đề.",out:"Ngân hàng câu hỏi bản nháp, đầy đủ đáp án, quy tắc chấm và mã truy vết."},
+b5:{t:"Thẩm định khung trước, rồi đến câu hỏi",goal:"Kiểm chứng giá trị nội dung của khung và của câu hỏi bằng chuyên gia độc lập, theo đúng thứ tự chuẩn trước – câu sau.",method:"Hai đợt tách riêng: đợt 1 thẩm định khung (định nghĩa, chỉ báo, mô tả mức, rubric), tổ chốt sửa rồi align lại câu hỏi; đợt 2 thẩm định câu hỏi theo khung đã chốt; mọi quyết định giữ/sửa/loại gắn với từng đơn vị cụ thể.",out:"Khung và bộ câu hỏi đã qua thẩm định, kèm danh mục chỉnh sửa có truy vết."},
+b6:{t:"Phỏng vấn nhận thức và chỉnh sửa",goal:"Phát hiện các vấn đề do ngôn ngữ, hình thức trình bày và độ dài gây ra, từ chính quá trình trả lời của học sinh.",method:"Phỏng vấn hai nhóm học sinh: nhóm đã học nội dung làm bài và nói to suy nghĩ, ghi thời gian từng câu; nhóm đúng đối tượng đọc đề và nói lại yêu cầu; mã hoá các loại lỗi và đối chiếu giữa hai nhóm.",out:"Bộ câu hỏi đã chỉnh sửa về ngôn ngữ, hình thức và thời lượng dự kiến."},
+b7:{t:"Thử nghiệm bộ công cụ với học sinh",goal:"Thu bằng chứng về bộ công cụ trong điều kiện sử dụng thật với học sinh đúng đối tượng.",method:"Tổ chức pilot đúng điều kiện thiết kế (thời lượng, hướng dẫn, giám sát); theo dõi tỉ lệ học sinh hoàn thành trong thời gian quy định và ghi nhận sự cố phát sinh.",out:"Bộ bài làm pilot và nhật ký tổ chức thử nghiệm."},
+b8:{t:"Chấm bài làm của học sinh và hiệu chuẩn người chấm",goal:"Bảo đảm điểm số nhất quán giữa các người chấm trước khi dùng để phân tích.",method:"Chấm thử và hiệu chuẩn trên bài mẫu neo; chấm đôi một phần mẫu để đo độ thống nhất giữa các người chấm; thống nhất lại hướng dẫn chấm ở những câu còn lệch.",out:"Điểm pilot có độ tin cậy đã kiểm chứng và hướng dẫn chấm đã hiệu chuẩn."},
+b9:{t:"Phân tích chất lượng câu hỏi và bằng chứng học sinh",goal:"Xác định câu hỏi nào đo tốt, câu hỏi nào cần sửa và học sinh đang ở mức nào trong tiến trình học tập.",method:"Phân tích độ khó và độ phân biệt của từng câu; đối chiếu phân bố mức đạt của học sinh với tiến trình học tập giả thuyết; đọc sâu bài làm để tìm các kiểu lỗi điển hình.",out:"Báo cáo chất lượng câu hỏi và bức tranh mức năng lực hiện tại của học sinh."},
+b10:{t:"Tinh chỉnh khung, nhiệm vụ và rubric",goal:"Khép kín chu trình bằng cách sửa đúng những gì bằng chứng chỉ ra, để chu trình sau bắt đầu từ một bộ công cụ tốt hơn.",method:"Tổng hợp ba nguồn bằng chứng (chuyên gia, phỏng vấn nhận thức, dữ liệu pilot) và quyết định giữ/sửa/loại theo từng đơn vị của khung, nhiệm vụ và rubric, ghi rõ lý do; chuyển kết quả phân tích thành điều chỉnh trong dạy học.",out:"Phiên bản khung và bộ công cụ đã tinh chỉnh, cùng kế hoạch cho chu trình PLC tiếp theo."}
+},
+en:{
+b1:{t:"Define the target competency",goal:"Reach a shared understanding of the focus competency the team will develop and assess in this cycle, anchored in the curriculum's required attainments.",method:"Study the required attainments and reference competency frameworks; discuss in the PLC to break the competency into component skills and agree operational definitions for each skill.",out:"The competency definition and component skills agreed in writing, serving as the reference standard for every later step."},
+b2:{t:"Develop observable indicators and a learning progression",goal:"Turn the definition into observable behaviours and describe how the competency develops across levels.",method:"Break each skill into behavioural indicators; describe each indicator at 4 levels (Bloom's taxonomy), with the standard level anchored in the grade's requirements; arrange the levels into a hypothesised learning progression.",out:"The indicator set with 4-level descriptors and the hypothesised learning progression."},
+b3:{t:"Build the assessment blueprint and weighting matrix",goal:"Decide which content will be assessed, with how many items and what weight, before any item is written.",method:"Build a two-way matrix of skills × topics; allocate marks and time by weight; decide the test structure (one test or several cluster tests).",out:"The agreed assessment blueprint and weighting matrix, as the basis for item writing."},
+b4:{t:"Design learning tasks and assessment items",goal:"Create tasks and items that measure the right indicator at the right level set in the blueprint.",method:"Build a task model for each indicator (evidence to collect, difficulty variables, level of support, item format, scoring rule); write items, answers and rubrics with traceability codes to indicator – level – topic.",out:"A draft item bank with answers, scoring rules and traceability codes."},
+b5:{t:"Validate the framework first, then the items",goal:"Verify the content validity of the framework and the items through independent experts, in the fixed order: standard first, items second.",method:"Two separate rounds: Round 1 validates the framework (definitions, indicators, level descriptors, rubrics); the team finalises revisions and aligns the items; Round 2 validates the items against the finalised framework; every keep/revise/drop decision attaches to a specific unit.",out:"The validated framework and item set, with a traceable revision list."},
+b6:{t:"Conduct cognitive interviews and revise",goal:"Detect problems caused by wording, presentation and length, from students' actual response processes.",method:"Interview two student groups: students who have learned the content take the test thinking aloud, with per-item timing recorded; students of the target group read each item and restate the requirement; code the error types and compare the two groups.",out:"The item set revised for wording, presentation and expected duration."},
+b7:{t:"Pilot the assessment with students",goal:"Gather evidence on the instrument under real conditions of use with the target students.",method:"Run the pilot under the designed conditions (time limits, instructions, supervision); monitor the proportion of students finishing within the allotted time and record any incidents.",out:"The pilot scripts and the pilot administration log."},
+b8:{t:"Score student work and calibrate raters",goal:"Ensure scores are consistent across raters before they are used for analysis.",method:"Trial-score and calibrate on anchor scripts; double-score a subsample to measure inter-rater agreement; re-align the scoring guide on items where raters diverge.",out:"Pilot scores with verified reliability and a calibrated scoring guide."},
+b9:{t:"Analyze item performance and student evidence",goal:"Identify which items measure well, which need revision, and where students sit in the learning progression.",method:"Analyse each item's difficulty and discrimination; compare the distribution of students' attained levels with the hypothesised learning progression; read scripts closely for typical error patterns.",out:"An item-quality report and a picture of students' current competency levels."},
+b10:{t:"Refine the framework, tasks, and rubrics",goal:"Close the cycle by fixing exactly what the evidence points to, so the next cycle starts from a better instrument.",method:"Synthesise the three evidence sources (experts, cognitive interviews, pilot data) and decide keep/revise/drop unit by unit across the framework, tasks and rubrics, recording the reasons; turn the analysis into adjustments in teaching.",out:"The refined framework and instrument, with a plan for the next PLC cycle."}
+}};
+let SYNTH_SEL=null;
+function wireSynth(){
+  const det=main.querySelector("#th-detail"); if(!det) return;
+  const D=STEPD[LANG]||STEPD.vi;
+  const groups=[...main.querySelectorAll(".cyc-step")];
+  const pick=g=>{ SYNTH_SEL=g.dataset.step; groups.forEach(x=>x.classList.toggle("sel",x===g));
+    const d=D[SYNTH_SEL]; if(!d) return;
+    det.innerHTML=`<div class="synth-detail-h">${LANG==="en"?"Step":"Bước"} ${SYNTH_SEL.slice(1)} — ${esc(d.t)}</div><div class="synth-detail-grid"><div><span>${LANG==="en"?"Objective":"Mục tiêu"}</span><p>${esc(d.goal)}</p></div><div><span>${LANG==="en"?"Method":"Phương pháp"}</span><p>${esc(d.method)}</p></div><div><span>${LANG==="en"?"Expected outcome":"Kết quả mong đợi"}</span><p>${esc(d.out)}</p></div></div>`;
+    det.hidden=false; };
+  groups.forEach(g=>{ g.addEventListener("click",()=>pick(g)); g.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); pick(g); } }); });
+  if(SYNTH_SEL){ const g=groups.find(x=>x.dataset.step===SYNTH_SEL); if(g) pick(g); }
+}
+
 /* ---------- per-session renderers ---------- */
 function hydrate(n){
   if(n===2){
@@ -918,13 +1120,13 @@ function renderWeights(){
   const tpNote=(r,i)=>EN?(i<WSTR_EN.topics.length&&WSTR_EN.topics[i][2]!=null?WSTR_EN.topics[i][2]:(r[9]||"")):(r[9]||"");
   const clName=(r,i)=>EN?(i<WSTR_EN.clusters.length?WSTR_EN.clusters[i][1]:WSTR_EN.total):r[1];
   const clTests=EN?WSTR_EN.clusters:W.clusters.map(r=>[r[0],r[1]]);
-  const DUR={A:25,B:20,C:15}, lk={}; LOOKUP.forEach(r=>lk[r[0]]=r[2]);
+  const DUR={A:25,B:20,C:15};
   let testsHtml=`<h3>${U.testsH}</h3><p class="note">${U.testsNote}</p>
-  <div class="tbl"><table class="tt"><thead><tr><th>${U.tTest}</th><th>${U.tCluster}</th><th class="num">${U.tItems}</th><th class="num">${U.tPoints}</th><th class="num">${U.tEst}</th><th class="num">${U.tDur}</th><th class="num">KN1 (${U.tPoints})</th><th class="num">KN2 (${U.tPoints})</th><th class="num">KN3 (${U.tPoints})</th></tr></thead><tbody>`;
-  ["A","B","C"].forEach(c=>{ const rows=QROWS.filter(r=>r[2]===c); const pts=rows.reduce((a,r)=>a+r[10],0); const est=rows.reduce((a,r)=>a+lk[r[9]],0); const sk={KN1:0,KN2:0,KN3:0}; rows.forEach(r=>sk[r[5]]+=r[10]); const cn=(clTests.find(r=>r[0]===c)||[])[1];
-    testsHtml+=`<tr><td><b>${U.tTest} ${c}</b></td><td>${esc(cn)}</td><td class="num">${rows.length}</td><td class="num">${num(pts)}</td><td class="num">${num(est)}</td><td class="num">${DUR[c]}</td><td class="num">${num(sk.KN1)}</td><td class="num">${num(sk.KN2)}</td><td class="num">${num(sk.KN3)}</td></tr>`; });
-  testsHtml+=`<tr class="total"><td colspan="2">${U.tTotal}</td><td class="num">${QROWS.length}</td><td class="num">${num(QROWS.reduce((a,r)=>a+r[10],0))}</td><td class="num">${num(QROWS.reduce((a,r)=>a+lk[r[9]],0))}</td><td class="num">${DUR.A+DUR.B+DUR.C}</td><td class="num">${num(W.points[0][4])}</td><td class="num">${num(W.points[1][4])}</td><td class="num">${num(W.points[2][4])}</td></tr></tbody></table></div>`;
-  let h=`<h3>${U.skillW}</h3><div class="bar" role="img" aria-label="KN1 25%, KN2 40%, KN3 35%">${W.skills.slice(0,3).map((r,i)=>`<div style="width:${r[4]*100}%;background:${kcol[i]}">KN${i+1} ${pct(r[4])}</div>`).join("")}</div>
+  <div class="tbl"><table class="tt"><thead><tr><th>${U.tTest}</th><th>${U.tCluster}</th><th class="num">${U.tItems}</th><th class="num">${U.tPoints}</th><th class="num">${U.tDur}</th><th class="num">${EN?"S1":"KN1"} (${U.tPoints})</th><th class="num">${EN?"S2":"KN2"} (${U.tPoints})</th><th class="num">${EN?"S3":"KN3"} (${U.tPoints})</th></tr></thead><tbody>`;
+  ["A","B","C"].forEach(c=>{ const rows=QROWS.filter(r=>r[2]===c); const pts=rows.reduce((a,r)=>a+r[10],0); const sk={KN1:0,KN2:0,KN3:0}; rows.forEach(r=>sk[r[5]]+=r[10]); const cn=(clTests.find(r=>r[0]===c)||[])[1];
+    testsHtml+=`<tr><td><b>${U.tTest} ${c}</b></td><td>${esc(cn)}</td><td class="num">${rows.length}</td><td class="num">${num(pts)}</td><td class="num">${DUR[c]}</td><td class="num">${num(sk.KN1)}</td><td class="num">${num(sk.KN2)}</td><td class="num">${num(sk.KN3)}</td></tr>`; });
+  testsHtml+=`<tr class="total"><td colspan="2">${U.tTotal}</td><td class="num">${QROWS.length}</td><td class="num">${num(QROWS.reduce((a,r)=>a+r[10],0))}</td><td class="num">${DUR.A+DUR.B+DUR.C}</td><td class="num">${num(W.points[0][4])}</td><td class="num">${num(W.points[1][4])}</td><td class="num">${num(W.points[2][4])}</td></tr></tbody></table></div>`;
+  let h=`<h3>${U.skillW}</h3><div class="bar" role="img" aria-label="${EN?"S1 25%, S2 40%, S3 35%":"KN1 25%, KN2 40%, KN3 35%"}">${W.skills.slice(0,3).map((r,i)=>`<div style="width:${r[4]*100}%;background:${kcol[i]}">${EN?"S":"KN"}${i+1} ${pct(r[4])}</div>`).join("")}</div>
   <p class="note">${U.skillNote}</p>
   <h4>${U.skillXH}</h4>
   <div class="tbl"><table><thead><tr><th>${U.cSkill}</th><th class="num">${U.cRem}</th><th class="num">${U.cUnd}</th><th class="num">${U.cApp}</th><th class="num">${U.cTot}</th></tr></thead><tbody>`;
@@ -933,11 +1135,11 @@ function renderWeights(){
   h+=`</tbody></table></div>`;
   sec.innerHTML=h;
   h=`<h3>${U.topicH}</h3><p class="note">${U.topicNote}</p>
-  <div class="tbl"><table class="fix2"><thead><tr><th>${U.hCode}</th><th>${U.hTopic}</th><th class="num">${U.hPeriods}</th><th>${U.hCluster}</th><th>${U.hIncl}</th><th class="num">${U.hCoef}</th><th class="num">${U.hWeight}</th><th class="num">${U.hCPoints}</th><th>${U.hNote}</th></tr></thead><tbody>`;
+  <div class="tbl"><table class="fix2"><thead><tr><th>${U.hCode}</th><th>${U.hTopic}</th><th class="num">${U.hPeriods}</th><th>${U.hCluster}</th><th class="num">${U.hCoef}</th><th class="num">${U.hWeight}</th><th class="num">${U.hCPoints}</th><th>${U.hNote}</th></tr></thead><tbody>`;
   W.topics.forEach((r,i)=>{ const tot=!r[0];
-    h+=`<tr class="${tot?'total':''}"><td>${esc(r[0]||"")}</td><td>${esc(tpName(r,i))}</td><td class="num">${num(r[2])}</td><td>${esc(r[3]||"")}</td><td>${tot?"":(r[4]?U.yes:U.no)}</td><td class="num">${tot?"":num(r[5])}</td><td class="num">${pct(r[7])}</td><td class="num">${num(r[8])}</td><td>${esc(tpNote(r,i))}</td></tr>`; });
+    h+=`<tr class="${tot?'total':''}"><td>${esc(r[0]||"")}</td><td>${esc(tpName(r,i))}</td><td class="num">${num(r[2])}</td><td>${esc(r[3]||"")}</td><td class="num">${tot?"":num(r[5])}</td><td class="num">${pct(r[7])}</td><td class="num">${num(r[8])}</td><td>${esc(tpNote(r,i))}</td></tr>`; });
   h+=`</tbody></table></div>`;
-  testsHtml+=`<h3>${U.clusH}</h3><div class="tbl"><table class="fix2"><thead><tr><th>${U.hCluster}</th><th>${U.hClName}</th><th class="num">${U.hWPeriods}</th><th class="num">${U.hWeight}</th><th class="num">${U.hTPoints}</th><th class="num">KN1</th><th class="num">KN2</th><th class="num">KN3</th></tr></thead><tbody>`;
+  testsHtml+=`<h3>${U.clusH}</h3><div class="tbl"><table class="fix2"><thead><tr><th>${U.hCluster}</th><th>${U.hClName}</th><th class="num">${U.hWPeriods}</th><th class="num">${U.hWeight}</th><th class="num">${U.hTPoints}</th><th class="num">${EN?"S1":"KN1"}</th><th class="num">${EN?"S2":"KN2"}</th><th class="num">${EN?"S3":"KN3"}</th></tr></thead><tbody>`;
   W.clusters.forEach((r,i)=>{ const tot=!r[0];
     testsHtml+=`<tr class="${tot?'total':''}"><td>${esc(r[0]||"")}</td><td>${esc(clName(r,i))}</td><td class="num">${num(r[2])}</td><td class="num">${pct(r[3])}</td><td class="num">${num(r[4])}</td><td class="num">${num(r[5])}</td><td class="num">${num(r[6])}</td><td class="num">${num(r[7])}</td></tr>`; });
   testsHtml+=`</tbody></table></div>`;
@@ -1002,7 +1204,7 @@ function renderQM(){
     const rs=QROWS.filter(r=>!c||r[2]===c);
     let pts=0;
     body.innerHTML=rs.map(r=>{ pts+=r[10];
-      return `<tr><td class="num">${r[0]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${esc(lessonD(r[4]))}</td><td>${chips(r[5])}</td><td>${chips(r[6])}</td><td>${esc(r[7])}</td><td>${esc(cogD(r[8]))}</td><td>${esc(typeD(r[9]))}</td><td class="num">${num(r[10])}</td>${W.map(w=>`<td style="${w}"></td>`).join("")}</tr>`; }).join("")
+      return `<tr><td class="num">${r[0]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${esc(lessonD(r[4]))}</td><td>${chips(r[5])}</td><td>${chips(r[6])}</td><td>${esc(LANG==="en" ? String(r[7]).replace(/^M/, "L") : r[7])}</td><td>${esc(cogD(r[8]))}</td><td>${esc(typeD(r[9]))}</td><td class="num">${num(r[10])}</td>${W.map(w=>`<td style="${w}"></td>`).join("")}</tr>`; }).join("")
       + `<tr class="total"><td colspan="2">${U.xTotal}</td><td colspan="7">${rs.length} ${U.items}</td><td class="num">${num(pts)}</td><td colspan="4"></td></tr>`;
   }
   draw("");
@@ -1138,13 +1340,13 @@ function renderTM(){
   const headHtml=()=>COLS.map(j=>`<th style="min-width:${MW[j]}px">${esc(H[j])}</th>`).join("");
   const rowHtml=(r,k)=>{ const code=r[0].split(" ")[0], name=r[0].slice(code.length).trim();
     return `<tr><td><span class="kn k${k}">${esc(code)}</span><br><b>${esc(name)}</b></td>${COLS.slice(1).map(j=>`<td${j===2?' style="white-space:nowrap"':''}>${inl(r[j])}</td>`).join("")}</tr>`; };
-  let h=`<div class="toolbar"><button type="button" data-f="0" class="on">${U.tmAll}</button><button type="button" data-f="1">KN1</button><button type="button" data-f="2">KN2</button><button type="button" data-f="3">KN3</button></div>`;
+  let h=`<div class="toolbar"><button type="button" data-f="0" class="on">${U.tmAll}</button><button type="button" data-f="1">${EN?"S1":"KN1"}</button><button type="button" data-f="2">${EN?"S2":"KN2"}</button><button type="button" data-f="3">${EN?"S3":"KN3"}</button></div>`;
   h+=`<div class="tm-block" data-k="0"><div class="tbl"><table class="tm-tbl fix1"><thead><tr>${headHtml()}</tr></thead><tbody>
-  ${["1","2","3"].map(k=>{ const rows=TASKS.filter(r=>r[0].startsWith("KN"+k+"."));
+  ${["1","2","3"].map(k=>{ const rows=TASKS.filter(r=>r[0].startsWith((EN?"S":"KN")+k+"."));
     return `<tr class="tm-grp"><td colspan="${COLS.length}"><b style="color:var(--k${k})">${esc(EN?KNAMES_EN[k]:KNAMES[k])}</b></td></tr>` + rows.map(r=>rowHtml(r,k)).join(""); }).join("")}
   </tbody></table></div></div>`;
   for(const k of ["1","2","3"]){
-    const rows=TASKS.filter(r=>r[0].startsWith("KN"+k+"."));
+    const rows=TASKS.filter(r=>r[0].startsWith((EN?"S":"KN")+k+"."));
     h+=`<div class="tm-block" data-k="${k}" hidden><h4 style="color:var(--k${k})">${esc(EN?KNAMES_EN[k]:KNAMES[k])}</h4>
     <div class="tbl"><table class="tm-tbl fix1"><thead><tr>${headHtml()}</tr></thead><tbody>
     ${rows.map(r=>rowHtml(r,k)).join("")}
@@ -1173,14 +1375,14 @@ function applyLang(){
   document.getElementById("lang-vi").classList.toggle("on",LANG==="vi");
   document.getElementById("lang-en").classList.toggle("on",LANG==="en");
   const t0=document.getElementById("tab-0"); if(t0) t0.lastChild.textContent=t.toc;
-  rail.querySelectorAll(".pill").forEach(b=>{ const n=+b.id.slice(4); const ss=SESSIONS.find(x=>x.n===n); if(ss){ b.innerHTML=`<span>${ss.n}.</span> ${wkD(ss.wk)}${ss.locked?lockSvg:""}`; b.title=ss.locked?UI[LANG].lockedTip:ST(ss); b.setAttribute("aria-label",`${UI[LANG].session} ${ss.n}, ${wkD(ss.wk)}: ${ST(ss)}`); } });
+  rail.querySelectorAll(".pill").forEach(b=>{ const n=+b.id.slice(4); const ss=SESSIONS.find(x=>x.n===n); if(ss){ b.innerHTML=`<span>${ss.n}.</span> ${wkD(ss.wk)}${ss.locked?lockSvg:""}`; b.title=ss.locked?UI[LANG].lockedTip:ST(ss); b.setAttribute("aria-label",`${UI[LANG].session} ${ss.n}, ${wkD(ss.wk)}: ${ST(ss)}`); } else if(b.id==="tab-th"){ b.innerHTML=`${LANG==="en"?"Synthesis":"Tổng hợp"}${synthOpen()?"":lockSvg}`; b.title=LANG==="en"?"Synthesis – password required to view":"Tổng hợp – cần mật khẩu để mở xem"; b.setAttribute("aria-label",LANG==="en"?"Synthesis":"Tổng hợp"); } });
 }
-function setLang(l){ if(l===LANG) return; LANG=l; store.set("plc-lang",l); applyLang(); const cur=+store.get("plc-session")||0; if(cur>0 && SESSIONS.some(x=>x.n===cur&&!x.locked)) openSession(cur,false); else openIndex(false); }
+function setLang(l){ if(l===LANG) return; LANG=l; store.set("plc-lang",l); applyLang(); if(store.get("plc-session")==="th"){ openSynth(false); return; } const cur=+store.get("plc-session")||0; if(cur>0 && SESSIONS.some(x=>x.n===cur&&!x.locked)) openSession(cur,false); else openIndex(false); }
 document.getElementById("lang-vi").addEventListener("click",()=>setLang("vi"));
 document.getElementById("lang-en").addEventListener("click",()=>setLang("en"));
 applyLang();
 
-{ const saved=store.get("plc-session"); const n=saved===null?0:+saved; if(n>0 && SESSIONS.some(s=>s.n===n&&!s.locked)) openSession(n,false); else openIndex(false); }
+{ const saved=store.get("plc-session"); const n=saved===null?0:+saved; if(saved==="th") openSynth(false); else if(n>0 && SESSIONS.some(s=>s.n===n&&!s.locked)) openSession(n,false); else openIndex(false); }
 </script>
 </body>
 </html>
